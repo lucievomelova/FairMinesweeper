@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{30CDEF34-7C28-419E-BA9C-FD972CAF6DBB}</ProjectGuid>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Minesweeper</RootNamespace>
+        <AssemblyName>Minesweeper</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <WarningLevel>4</WarningLevel>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xaml">
+            <RequiredTargetFramework>4.0</RequiredTargetFramework>
+        </Reference>
+        <Reference Include="WindowsBase" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+    </ItemGroup>
+    <ItemGroup>
+        <ApplicationDefinition Include="App.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </ApplicationDefinition>
+        <Compile Include="Cell.cs" />
+        <Compile Include="Neighbours.cs" />
+        <Compile Include="Options.xaml.cs">
+          <DependentUpon>Options.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Open.cs" />
+        <Compile Include="Model.cs" />
+        <Compile Include="PlaceMines\BorderArea.cs" />
+        <Compile Include="PlaceMines\HelpArray.cs" />
+        <Compile Include="PlaceMines\PlaceMines.cs" />
+        <Compile Include="PlaceMines\Sections.cs" />
+        <Compile Include="Solver.cs" />
+        <Compile Include="Timer.cs" />
+        <Compile Include="Values.cs" />
+        <Page Include="Options.xaml" />
+        <Page Include="MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </Page>
+        <Compile Include="App.xaml.cs">
+            <DependentUpon>App.xaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Include="Img.cs" />
+        <Compile Include="MainWindow.xaml.cs">
+            <DependentUpon>MainWindow.xaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Properties\AssemblyInfo.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Include="Properties\Resources.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+        <EmbeddedResource Include="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="App.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="bin\Debug\pic\1.jpg" />
+      <Content Include="bin\Debug\pic\2.jpg" />
+      <Content Include="bin\Debug\pic\3.jpg" />
+      <Content Include="bin\Debug\pic\4.jpg" />
+      <Content Include="bin\Debug\pic\5.jpg" />
+      <Content Include="bin\Debug\pic\6.jpg" />
+      <Content Include="bin\Debug\pic\7.jpg" />
+      <Content Include="bin\Debug\pic\8.jpg" />
+      <Content Include="bin\Debug\pic\blank.jpg" />
+      <Content Include="bin\Debug\pic\blank_mouse_over.jpg" />
+      <Content Include="bin\Debug\pic\click.jpg" />
+      <Content Include="bin\Debug\pic\click_down.jpg" />
+      <Content Include="bin\Debug\pic\flag.jpg" />
+      <Content Include="bin\Debug\pic\game_over.jpg" />
+      <Content Include="bin\Debug\pic\game_over_down.jpg" />
+      <Content Include="bin\Debug\pic\icon.png" />
+      <Content Include="bin\Debug\pic\mine.jpg" />
+      <Content Include="bin\Debug\pic\pink_blank.jpg" />
+      <Content Include="bin\Debug\pic\question_mark.jpg" />
+      <Content Include="bin\Debug\pic\smiley.jpg" />
+      <Content Include="bin\Debug\pic\smiley_down.jpg" />
+      <Content Include="pic\0.png" />
+      <Content Include="pic\1.png" />
+      <Content Include="pic\2.png" />
+      <Content Include="pic\3.png" />
+      <Content Include="pic\4.png" />
+      <Content Include="pic\5.png" />
+      <Content Include="pic\6.png" />
+      <Content Include="pic\7.png" />
+      <Content Include="pic\8.png" />
+      <Content Include="pic\blank.png" />
+      <Content Include="pic\click.png" />
+      <Content Include="pic\click_down.png" />
+      <Content Include="pic\flag.png" />
+      <Content Include="pic\game_over.png" />
+      <Content Include="pic\game_over_down.png" />
+      <Content Include="pic\icon.png" />
+      <Content Include="pic\mine.png" />
+      <Content Include="pic\mine_clicked.png" />
+      <Content Include="pic\pink_blank.png" />
+      <Content Include="pic\question_mark.png" />
+      <Content Include="pic\smiley.png" />
+      <Content Include="pic\smiley_down.png" />
+      <Content Include="pic\win.png" />
+      <Content Include="pic\win_down.png" />
+      <Content Include="pic\wrong_mine.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="bin" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
