@@ -16,6 +16,7 @@ namespace Minesweeper
             SetNeighboursToKnown(cell.row, cell.column);
             PlaceRemainingMines(Values.mines);
             SetNumbersAroundMines();
+            placeMines.InitHelpArrays();
         }
 
         /// <summary> when there are no known unopened numbers left, player can click on any unknown cell and there has

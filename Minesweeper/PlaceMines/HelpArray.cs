@@ -18,12 +18,16 @@ namespace Minesweeper
 
         /// <summary> copy of actual game field </summary>
         public helpCell[,] helpArray;
-        
-        //copy MainWindow.cells to helpArray
-        public void CopyField()
+
+        public void InitHelpArrays()
         {
             helpArray = new helpCell[Values.height, Values.width]; //copy of MainWindow.cells
             parents = new helpCell[Values.height, Values.width];
+        }
+
+        //copy MainWindow.cells to helpArray
+        public void CopyField()
+        {
             for (int r = 0; r < Values.height; r++)
             {
                 for (int c = 0; c < Values.width; c++)
