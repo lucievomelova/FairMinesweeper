@@ -33,12 +33,18 @@ namespace Minesweeper
         //increment TimeLabel every second
         private void TimerTick(object sender, EventArgs e)
         {
-            TimeSpan timePassed = DateTime.Now - TimerStart;
-            int seconds = (int)timePassed.TotalSeconds;
+            int seconds = TimePassed();
             if(seconds < 1000)
                 mainWindow.TimeLabel.Content = seconds.ToString("D3");
             else
                 mainWindow.TimeLabel.Content = "999";
+        }
+
+        public int TimePassed()
+        {
+            TimeSpan timePassed = DateTime.Now - TimerStart;
+            int seconds = (int)timePassed.TotalSeconds;
+            return seconds;
         }
     }
 }

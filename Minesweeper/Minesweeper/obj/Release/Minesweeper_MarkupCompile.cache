@@ -4,14 +4,14 @@
 exe
 C#
 .cs
-C:\Users\admin\RiderProjects\Minesweeper\Minesweeper\obj\Debug\
+C:\Users\admin\RiderProjects\Minesweeper\Minesweeper\obj\Release\
 Minesweeper
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\admin\RiderProjects\Minesweeper\Minesweeper\App.xaml
 2-32274378
-46-738233526
+91-1492320994
 171095196303
 91476963571
 Options.xaml;MainWindow.xaml;

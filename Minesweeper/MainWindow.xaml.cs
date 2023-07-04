@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Text.Json;
 
 namespace Minesweeper
 {
@@ -339,10 +341,38 @@ namespace Minesweeper
         
         #endregion
 
+        
+
+        private void Load(string filename)
+        {
+            StreamReader streamReader = new StreamReader(filename);
+            string serializedModel = streamReader.ReadToEnd();
+            try
+            {
+                model = JsonSerializer.Deserialize<Model>(serializedModel);
+            }
+            catch
+            {
+                MessageBox.Show("Error - file cannot be opened.");
+            }
+        }
+
         private void OpenOptions(object sender, RoutedEventArgs e)
         {
             Options options = new Options(this);
             options.Show();
+        }
+
+        private void OpenSaver(object sender, RoutedEventArgs e)
+        {
+            Save save = new Save(cells, timer.TimePassed());
+            save.Show();
+        }
+        
+        private void OpenLoader(object sender, RoutedEventArgs e)
+        {
+            Save save = new Save(cells, timer.TimePassed());
+            save.Show();
         }
 
     }
