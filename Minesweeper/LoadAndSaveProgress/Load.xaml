@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="Load" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <DockPanel Margin="10">
+                <Label Content="Choose file: "></Label>
+                <ComboBox x:Name="SavedGamesComboBox" Width="200">
+                </ComboBox>
+            </DockPanel>
+            <Button Content="OK" Click="LoadGame" Width="50" Margin="20"></Button>
+        </StackPanel>
     </Grid>
 </Window>

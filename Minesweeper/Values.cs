@@ -30,6 +30,15 @@
         public const int UNKNOWN = -3; //we can't be sure if cell is a number or a mine
         public const int MINE_CLICKED = -4; //cell is a mine and player clicked on it
 
+
+        // used when saving unfinished game
+        public const int NUMBER_MARKED_WITH_A_FLAG = 20;
+        public const int MINE_MARKED_WITH_A_QUESTION_MARK = 30;
+        public const int UNOPENED_NUMBER = 40;
+        public const int MINE_MARKED_WITH_A_FLAG = 50;
+        public const int NUMBER_MARKED_WITH_A_QUESTION_MARK = 60;
+        public const int UNMARKED_MINE = 70;
+
         public static bool InBounds(int row, int column)
         {
             return (row < height) && (row >= 0) && (column < width) && (column >= 0);

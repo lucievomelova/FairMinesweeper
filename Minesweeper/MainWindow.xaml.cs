@@ -371,8 +371,9 @@ namespace Minesweeper
         
         private void OpenLoader(object sender, RoutedEventArgs e)
         {
-            Save save = new Save(cells, timer.TimePassed());
-            save.Show();
+            Load load = new Load();
+            load.Show();
+            model.ReGenerate(); //TODO toto nefunguje, nejak zaridit, aby se odkryly jenom opened cells
         }
 
     }

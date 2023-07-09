@@ -89,8 +89,12 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="Cell.cs" />
-        <Compile Include="Load.xaml.cs">
+        <Compile Include="LoadAndSaveProgress\Encoder.cs" />
+        <Compile Include="LoadAndSaveProgress\Load.xaml.cs">
           <DependentUpon>Load.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="LoadAndSaveProgress\Save.xaml.cs">
+          <DependentUpon>Save.xaml</DependentUpon>
         </Compile>
         <Compile Include="Neighbours.cs" />
         <Compile Include="Options.xaml.cs">
@@ -102,13 +106,11 @@
         <Compile Include="PlaceMines\HelpArray.cs" />
         <Compile Include="PlaceMines\PlaceMines.cs" />
         <Compile Include="PlaceMines\Sections.cs" />
-        <Compile Include="Save.xaml.cs">
-          <DependentUpon>Save.xaml</DependentUpon>
-        </Compile>
         <Compile Include="Solver.cs" />
         <Compile Include="Timer.cs" />
         <Compile Include="Values.cs" />
-        <Page Include="Load.xaml" />
+        <Page Include="LoadAndSaveProgress\Load.xaml" />
+        <Page Include="LoadAndSaveProgress\Save.xaml" />
         <Page Include="Options.xaml" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
@@ -123,7 +125,6 @@
             <DependentUpon>MainWindow.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Page Include="Save.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">

@@ -22,7 +22,9 @@ namespace Minesweeper
                 MessageBox.Show("Enter file name");
             else
             {
-                StreamWriter streamWriter = new StreamWriter(filename + ".txt");
+                if (!Directory.Exists("./saved"))
+                    Directory.CreateDirectory("./saved");
+                StreamWriter streamWriter = new StreamWriter("saved/" + filename + ".txt");
                 streamWriter.Write(StateToString());
                 streamWriter.Close();
                 Close();
@@ -40,12 +42,7 @@ namespace Minesweeper
                 for (int c = 0; c < Values.width; c++)
                 {
                     Cell cell = MainWindow.cells[r, c];
-                    if(cell.value >= 0)
-                        model += cell.value;
-                    else if (cell.isFlag)
-                        model += "f";
-                    else
-                        model += "u";
+                    model += Encoder.CellToChar(cell);
                 }
 
                 model += "\n";
@@ -53,5 +50,7 @@ namespace Minesweeper
 
             return model;
         }
+
+        
     }
 }

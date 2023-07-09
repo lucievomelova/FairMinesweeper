@@ -23,11 +23,15 @@ namespace Minesweeper
         /// to be a number. If there wasn't originally a number, whole game field has to be generated again and this
         /// method is called </summary>
         /// <returns> true if reGeneration was successful </returns>
-        public bool ReGenerate(Cell cell)
+        public bool ReGenerate(Cell cell = null)
         {
             placeMines.CopyField();
-            placeMines.helpArray[cell.row, cell.column].value = Values.NUMBER;
-            placeMines.helpArray[cell.row, cell.column].known = true;
+            if (cell != null)
+            {
+                placeMines.helpArray[cell.row, cell.column].value = Values.NUMBER;
+                placeMines.helpArray[cell.row, cell.column].known = true;
+            }
+
             placeMines.SplitIntoSections();
             bool success = placeMines.FirstCombinationOnArea();
             if (success)
