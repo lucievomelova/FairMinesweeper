@@ -36,6 +36,9 @@ namespace Minesweeper
             string model = "";
             model += Values.height + " " + Values.width + "\n"; // size of game field
             model += timePassed + "\n"; // how much time already passed
+            model += Values.minesLeft + "\n";
+            model += Values.flagsLeft + "\n";
+            
 
             for (int r = 0; r < Values.height; r++)
             {

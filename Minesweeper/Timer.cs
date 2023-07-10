@@ -9,6 +9,7 @@ namespace Minesweeper
         private readonly DispatcherTimer timer;
         private DateTime TimerStart;
         private readonly MainWindow mainWindow;
+        private int startingTime = 0;
 
         public Timer(MainWindow mainWindow)
         {
@@ -43,8 +44,13 @@ namespace Minesweeper
         public int TimePassed()
         {
             TimeSpan timePassed = DateTime.Now - TimerStart;
-            int seconds = (int)timePassed.TotalSeconds;
+            int seconds = (int)timePassed.TotalSeconds + startingTime;
             return seconds;
+        }
+
+        public void SetStartTime(int startTime)
+        {
+            startingTime = startTime;
         }
     }
 }

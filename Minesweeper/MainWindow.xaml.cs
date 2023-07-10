@@ -343,20 +343,6 @@ namespace Minesweeper
 
         
 
-        private void Load(string filename)
-        {
-            StreamReader streamReader = new StreamReader(filename);
-            string serializedModel = streamReader.ReadToEnd();
-            try
-            {
-                model = JsonSerializer.Deserialize<Model>(serializedModel);
-            }
-            catch
-            {
-                MessageBox.Show("Error - file cannot be opened.");
-            }
-        }
-
         private void OpenOptions(object sender, RoutedEventArgs e)
         {
             Options options = new Options(this);
@@ -371,9 +357,8 @@ namespace Minesweeper
         
         private void OpenLoader(object sender, RoutedEventArgs e)
         {
-            Load load = new Load();
+            Load load = new Load(this);
             load.Show();
-            model.ReGenerate(); //TODO toto nefunguje, nejak zaridit, aby se odkryly jenom opened cells
         }
 
     }

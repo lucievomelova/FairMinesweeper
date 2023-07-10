@@ -33,11 +33,12 @@
 
         // used when saving unfinished game
         public const int NUMBER_MARKED_WITH_A_FLAG = 20;
-        public const int MINE_MARKED_WITH_A_QUESTION_MARK = 30;
-        public const int UNOPENED_NUMBER = 40;
-        public const int MINE_MARKED_WITH_A_FLAG = 50;
-        public const int NUMBER_MARKED_WITH_A_QUESTION_MARK = 60;
-        public const int UNMARKED_MINE = 70;
+        public const int NUMBER_MARKED_WITH_A_QUESTION_MARK = 40;
+        public const int UNOPENED_NUMBER = 60;
+        public const int MINE_MARKED_WITH_A_FLAG = 80;
+        public const int MINE_MARKED_WITH_A_QUESTION_MARK = 100;
+        public const int UNMARKED_MINE = 120;
+        public const int KNOWN = 10;
 
         public static bool InBounds(int row, int column)
         {

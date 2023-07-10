@@ -6,11 +6,10 @@ namespace Minesweeper
 {
     public partial class Load : Window
     {
-        private int rows;
-        private int columns;
         private int time;
+        private MainWindow mainWindow;
         
-        public Load()
+        public Load(MainWindow mainWindow)
         {
             InitializeComponent();
             DirectoryInfo d = new DirectoryInfo(@".\saved\");
@@ -20,6 +19,8 @@ namespace Minesweeper
                 string name = f.Name.Substring(0, f.Name.Length - 4);
                 SavedGamesComboBox.Items.Add(f.Name);
             }
+
+            this.mainWindow = mainWindow;
         }
         
         private void LoadGame(object sender, RoutedEventArgs e)
@@ -29,7 +30,7 @@ namespace Minesweeper
                 MessageBox.Show("Choose file name");
             else
             {
-                Close();
+                LoadFromFile("saved/" + filename);
             }
         }
 
@@ -40,38 +41,46 @@ namespace Minesweeper
                 StreamReader streamReader = new StreamReader(filename);
                 string line = streamReader.ReadLine(); // first line contains dimensions
                 string[] words = line.Split(' ');
-                Int32.TryParse(words[0], out rows);
-                Int32.TryParse(words[1], out columns);
+                Int32.TryParse(words[0], out Values.height);
+                Int32.TryParse(words[1], out Values.width);
 
                 line = streamReader.ReadLine(); // second line contains how much time passed
                 Int32.TryParse(line, out time);
-                string content = streamReader.ReadToEnd(); // remaining lines are game field
-                GenerateGameFromString(content);
+                line = streamReader.ReadLine(); // third line contains number of mines left
+                Int32.TryParse(line, out Values.minesLeft);
+                line = streamReader.ReadLine(); // fourth line contains number of flags left
+                Int32.TryParse(line, out Values.flagsLeft);
+
+                // remaining lines are game field
+                mainWindow.PrepareGame();
+                for (int r = 0; r < Values.height; r++)
+                {
+                    line = streamReader.ReadLine();
+                    for (int c = 0; c < Values.width; c++)
+                    {
+                        Encoder.CharToCell(line[c], MainWindow.cells[r,c]);
+                    }
+                }
+
+                for (int r = 0; r < Values.height; r++)
+                {
+                    for (int c = 0; c < Values.width; c++)
+                    {
+                        Cell cell = MainWindow.cells[r, c];
+                        cell.unknownLeft = Neighbours.CountUnknown(cell);
+                        if(cell.value > 0)
+                            cell.minesLeft = cell.value - Neighbours.CountKnownMines(cell);
+                    }
+                }
+                Open.OpenAfterLoad();
+                mainWindow.timer.SetStartTime(time);
+                mainWindow.timer.Start();
                 Close();
             }
-            catch
+            catch(Exception e)
             {
-                MessageBox.Show("Error when reading file.");
+                MessageBox.Show(e.Message);
             }
-        }
-
-        private void GenerateGameFromString(string savedGame)
-        {
-            int row = 0;
-            int column = 0;
-            Cell[,] cells = new Cell[rows, columns];
-            foreach(char c in savedGame)
-            {
-                Cell cell = Encoder.CharToCell(c, row, column);
-                column++;
-                if (c == '\n')
-                {
-                    row++;
-                    column = 0;
-                }
-            }
-
-            MainWindow.cells = cells;
         }
 
     }

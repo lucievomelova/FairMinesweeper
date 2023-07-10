@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Minesweeper
@@ -145,6 +146,22 @@ namespace Minesweeper
                     cell.SetImage(Img.Number(cell.value));
                 else
                     cell.SetImage(Img.Flag);
+            }
+        }
+
+        /// <summary> Called when saved game is loaded from a file to opened cells that were opened before saving </summary>
+        public static void OpenAfterLoad()
+        {
+            foreach (Cell cell in MainWindow.cells)
+            {
+                if(cell.isOpened)
+                    cell.SetImage(Img.Number(cell.value));
+                else if(cell.isFlag)
+                    cell.SetImage(Img.Flag);
+                else if(cell.isQuestionMark)
+                    cell.SetImage(Img.QuestionMark);
+                else if(cell.isKnown)
+                    cell.SetImage(Img.Known);
             }
         }
     }
