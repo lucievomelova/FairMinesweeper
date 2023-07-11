@@ -6,7 +6,7 @@ namespace Minesweeper
     /// <summary> class for generating game field </summary>
     public class Model
     {
-        public PlaceMines placeMines = new PlaceMines();
+        public Solver solver = new Solver();
         
         /// <summary> generate new game field </summary>
         public void Generate(Cell cell)
@@ -16,7 +16,7 @@ namespace Minesweeper
             SetNeighboursToKnown(cell.row, cell.column);
             PlaceRemainingMines(Game.mines);
             SetNumbersAroundMines();
-            placeMines.InitHelpArrays();
+            solver.InitHelpArrays();
         }
 
         /// <summary> when there are no known unopened numbers left, player can click on any unknown cell and there has
@@ -25,15 +25,15 @@ namespace Minesweeper
         /// <returns> true if reGeneration was successful </returns>
         public bool ReGenerate(Cell cell = null)
         {
-            placeMines.CopyField();
+            solver.CopyField();
             if (cell != null)
             {
-                placeMines.helpArray[cell.row, cell.column].value = Values.NUMBER;
-                placeMines.helpArray[cell.row, cell.column].known = true;
+                solver.helpArray[cell.row, cell.column].value = Values.NUMBER;
+                solver.helpArray[cell.row, cell.column].known = true;
             }
 
-            placeMines.SplitIntoSections();
-            bool success = placeMines.FirstCombinationOnArea();
+            solver.SplitIntoSections();
+            bool success = solver.FirstCombinationOnArea();
             if (success)
             {
                 PlaceIntoMain();
@@ -88,12 +88,12 @@ namespace Minesweeper
 
         private void PlaceIntoMain()
         {
-            foreach (PlaceMines.helpCell h in placeMines.helpArray)
+            foreach (Solver.helpCell h in solver.helpArray)
                 Game.cells[h.row, h.column].value = h.value; //set values
             
-            int minesPlaced = placeMines.helpArray.Cast<PlaceMines.helpCell>().Count(h => h.value == Values.MINE);
+            int minesPlaced = solver.helpArray.Cast<Solver.helpCell>().Count(h => h.value == Values.MINE);
             PlaceRemainingMines(Game.mines - minesPlaced);
-            Game.minesLeft = Game.mines - placeMines.KnownMinesInHelpArray();
+            Game.minesLeft = Game.mines - solver.KnownMinesInHelpArray();
             
             SetNumbersAroundMines();
         }

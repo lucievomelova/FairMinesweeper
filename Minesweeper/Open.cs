@@ -14,8 +14,8 @@ namespace Minesweeper
         public Open(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
-            solver = new Solver();
-            model = solver.model;
+            model = new Model();
+            solver = model.solver;
         }
 
         public void SetCell(Cell cell, bool opened, bool flag, bool questionMark)
@@ -28,7 +28,6 @@ namespace Minesweeper
 
             if(cell.IsNumber() && opened)
                 solver.UpdateCell(cell);
-            
 
             if(flag) 
                 cell.SetImage(Img.Flag);

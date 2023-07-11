@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Minesweeper
 {
-    public partial class PlaceMines
+    public partial class Solver
     {
         /// <summary> struct that imitates Cell class (but only copies useful variables) </summary>
         public struct helpCell

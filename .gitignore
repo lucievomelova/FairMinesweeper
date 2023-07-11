@@ -1,5 +1,6 @@
-Minesweeper/obj/*
-Minesweeper/bin/*
 *.idea
 */.vs
 packages
+*.exe
+*.pdb
+*Debug*

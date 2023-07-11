@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Minesweeper
 {
-    public partial class PlaceMines
+    public partial class Solver
     {
         /// <summary> Find cells that are open and don't have enough known mines around </summary>
         private List<helpCell> FindBorderArea()

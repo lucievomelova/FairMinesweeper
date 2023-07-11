@@ -4,13 +4,25 @@ using System.Linq;
 namespace Minesweeper
 {
     /// <summary> pre-solves area around open cells in current game (if possible) </summary>
-    public class Solver
+    public partial class Solver
     {
-        public readonly Model model;
+        private enum CellState
+        {
+            MINE, 
+            NUMBER, 
+            KNOWN, 
+            UNOPENED
+        }
+
+        /// <summary> Array used for bruteforce. Each cell has a beginning state. If NUMBER or MINE state doesn't change,
+        /// then that cell contains NUMBER or MINE </summary>
+        readonly CellState[,] stateArray;
+        
+        
 
         public Solver()
         {
-            model = new Model();
+            stateArray = new CellState[Game.height, Game.width];
         }
 
         /// <summary> count unopened but known numbers in game field </summary>
@@ -39,7 +51,7 @@ namespace Minesweeper
                         BorderArea.Enqueue(neighbour);
             } 
             
-            model.placeMines.TryAll();
+            TryAll();
         }
 
         /// <summary> Count known mines and unknown cells around cell. If number of known mines == cell.value or

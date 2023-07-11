@@ -43,12 +43,12 @@ namespace Minesweeper
                 string[] words = line.Split(' ');
                 Int32.TryParse(words[0], out Game.height);
                 Int32.TryParse(words[1], out Game.width);
+                line = streamReader.ReadLine(); // second line contains how much time passed
+                Int32.TryParse(line, out time);
                 
                 mainWindow.ResumeGame(time);
 
 
-                line = streamReader.ReadLine(); // second line contains how much time passed
-                Int32.TryParse(line, out time);
                 line = streamReader.ReadLine(); // third line contains number of mines left
                 Int32.TryParse(line, out Game.minesLeft);
                 line = streamReader.ReadLine(); // fourth line contains number of flags left
@@ -80,6 +80,14 @@ namespace Minesweeper
                 }
                 Open.OpenAfterLoad();
                 Close();
+                
+                mainWindow.CheckWin();
+            
+                if (mainWindow.previousGame != Game.PreviousGame.WIN)
+                {
+                    mainWindow.timer.SetStartTime(time);
+                    mainWindow.timer.Start();
+                }
             }
             catch(Exception e)
             {

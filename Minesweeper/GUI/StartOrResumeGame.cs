@@ -12,9 +12,8 @@
             timer.Stop();
             previousGame = Game.PreviousGame.NORMAL;
             newGame = false;
-            model.placeMines.InitHelpArrays();
-            timer.SetStartTime(time);
-            timer.Start();
+            model.solver.InitHelpArrays();
+            TimeLabel.Content = time.ToString("D3");
         }
         
         /// <summary> Start new game by clicking on a random cell on the game field </summary>

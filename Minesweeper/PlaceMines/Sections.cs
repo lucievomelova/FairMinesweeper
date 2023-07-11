@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Minesweeper
 {
-    public partial class PlaceMines
+    public partial class Solver
     {
         /// <summary> Game field will be split into sections of unopened cells that have an opened neighbour. Each
         /// section has it's own *parent*, which is one of their common opened neighbours. If unopened cell is itselfs

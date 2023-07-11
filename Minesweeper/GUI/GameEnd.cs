@@ -8,7 +8,7 @@ namespace Minesweeper
         
         /// <summary> check if player has already won the game - either all mines are marked with a flag or the number of
         /// unopened cells is equal to number of mines in game </summary>
-        private void CheckWin()
+        public void CheckWin()
         {
             if ((solver.CountIncorrectFlags() == 0 && Game.flagsLeft == 0 && Game.minesLeft == 0) ||
                 Game.unopenedLeft == Game.mines)

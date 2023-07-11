@@ -113,7 +113,7 @@
         <Compile Include="PlaceMines\HelpArray.cs" />
         <Compile Include="PlaceMines\PlaceMines.cs" />
         <Compile Include="PlaceMines\Sections.cs" />
-        <Compile Include="Solver.cs" />
+        <Compile Include="PlaceMines\Solver.cs" />
         <Compile Include="Timer.cs" />
         <Compile Include="Values.cs" />
         <Page Include="LoadAndSaveProgress\Load.xaml" />
