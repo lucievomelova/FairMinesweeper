@@ -341,7 +341,15 @@ namespace Minesweeper
         
         #endregion
 
-        
+
+        public void ResumeGame()
+        {
+            PrepareGame();
+            timer.Stop();
+            previousGame = PreviousGame.NORMAL;
+            newGame = false;
+            model.placeMines.InitHelpArrays();
+        }
 
         private void OpenOptions(object sender, RoutedEventArgs e)
         {

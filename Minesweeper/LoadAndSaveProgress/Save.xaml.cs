@@ -38,7 +38,9 @@ namespace Minesweeper
             model += timePassed + "\n"; // how much time already passed
             model += Values.minesLeft + "\n";
             model += Values.flagsLeft + "\n";
-            
+            model += Values.unopenedLeft + "\n";
+            model += Values.mines + "\n";
+
 
             for (int r = 0; r < Values.height; r++)
             {
