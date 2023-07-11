@@ -16,30 +16,30 @@ namespace Minesweeper
         {
             if (BeginnerOption.IsSelected)
             {
-                Values.mines = 10;
-                Values.width = 9;
-                Values.height = 9;
+                Game.mines = 10;
+                Game.width = 9;
+                Game.height = 9;
             }
             else if (IntermediateOption.IsSelected)
             {
-                Values.mines = 40;
-                Values.width = 15;
-                Values.height = 13;
+                Game.mines = 40;
+                Game.width = 15;
+                Game.height = 13;
             }
             else if(ExpertOption.IsSelected)
             {
-                Values.mines = 99;
-                Values.width = 30;
-                Values.height = 16;
+                Game.mines = 99;
+                Game.width = 30;
+                Game.height = 16;
             }
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             if(DebugModeRadioBtn.IsChecked == true)
-                MainWindow.DebugMode = true;
+                Game.DebugMode = true;
             else
-                MainWindow.DebugMode = false;
+                Game.DebugMode = false;
 
             SetDifficulty();
             

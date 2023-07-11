@@ -16,7 +16,7 @@ namespace Minesweeper
         /// <summary> count unopened but known numbers in game field </summary>
         public int KnownNumbers() //
         {
-            return MainWindow.cells.Cast<Cell>().Count(c => c.IsNumber() && !c.isOpened && c.isKnown);
+            return Game.cells.Cast<Cell>().Count(c => c.IsNumber() && !c.isOpened && c.isKnown);
         }
 
         /// <summary> find every opened nonzero number and try to update it. If a number is updated, it's neighbours
@@ -24,7 +24,7 @@ namespace Minesweeper
         public void Update()
         {
             Queue<Cell> BorderArea = new Queue<Cell>();
-            foreach (Cell c in MainWindow.cells)
+            foreach (Cell c in Game.cells)
                 if (c.IsNumber() && c.minesLeft != 0 && c.isOpened)
                     BorderArea.Enqueue(c);
 
@@ -62,13 +62,13 @@ namespace Minesweeper
             {
                 if (neighbour.isKnown) continue;
                 
-                if(MainWindow.DebugMode && !neighbour.IsMarked())
+                if(Game.DebugMode && !neighbour.IsMarked())
                     neighbour.SetImage(Img.Known);
                 
                 neighbour.isKnown = true;
             }
 
-            Values.minesLeft -= cell.minesLeft;
+            Game.minesLeft -= cell.minesLeft;
             cell.minesLeft = 0;
             cell.unknownLeft = 0;
             return updated;
@@ -77,7 +77,7 @@ namespace Minesweeper
         public int CountIncorrectFlags()
         {
             int counter = 0;
-            foreach (Cell cell in MainWindow.cells)
+            foreach (Cell cell in Game.cells)
             {
                 if (cell.isFlag && !cell.IsMine())
                     counter++;

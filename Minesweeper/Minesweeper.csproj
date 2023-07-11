@@ -89,6 +89,13 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="Cell.cs" />
+        <Compile Include="Game.cs" />
+        <Compile Include="GUI\BeforeStart.cs" />
+        <Compile Include="GUI\CellClicked.cs" />
+        <Compile Include="GUI\GameEnd.cs" />
+        <Compile Include="GUI\Grid.cs" />
+        <Compile Include="GUI\NewGameButton.cs" />
+        <Compile Include="GUI\StartOrResumeGame.cs" />
         <Compile Include="LoadAndSaveProgress\Encoder.cs" />
         <Compile Include="LoadAndSaveProgress\Load.xaml.cs">
           <DependentUpon>Load.xaml</DependentUpon>

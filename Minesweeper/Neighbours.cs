@@ -18,7 +18,7 @@ namespace Minesweeper
                 if (r == 0 && c == 0) continue;
                     
                 if (Values.InBounds(cell.row + r, cell.column + c))
-                    neighbours.Add(MainWindow.cells[cell.row + r, cell.column + c]);
+                    neighbours.Add(Game.cells[cell.row + r, cell.column + c]);
             }
             return neighbours;
         }
@@ -37,7 +37,7 @@ namespace Minesweeper
                 foreach (Cell neighbour in Get(cell))
                     if(!neighbour.isOpened && !neighbour.IsMarked())
                     {
-                        if(MainWindow.DebugMode)
+                        if(Game.DebugMode)
                             neighbour.SetImage(Img.Known);
                         else
                             neighbour.SetImage(Img.Empty);
@@ -62,7 +62,7 @@ namespace Minesweeper
 
         public static int CountMines(int row, int column)
         {
-            Cell cell = MainWindow.cells[row, column];
+            Cell cell = Game.cells[row, column];
             return Get(cell).Count(h => h.value == Values.MINE);
         }
 

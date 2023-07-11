@@ -2,27 +2,8 @@
 {
     public static class Values
     {
-        /// <summary> how many cells (buttons) aren't opened (including marked cells) </summary>
-        public static int unopenedLeft; 
-        
-        /// <summary> how many flags (to mark mines) aren't placed yet </summary>
-        public static int flagsLeft; 
-        
-        /// <summary> how many mine locations are unknown </summary>
-        public static int minesLeft;
-
-
         public const int cellSize = 30;
 
-        /// <summary> number of columns </summary>
-        public static int width = 9;
-
-        /// <summary> number of rows </summary>
-        public static int height = 9;
-
-        /// <summary> total number of mines in current game </summary>
-        public static int mines = 10;
-        
 
         //constants
         public const int NUMBER = -1; //cell is a number
@@ -42,7 +23,7 @@
 
         public static bool InBounds(int row, int column)
         {
-            return (row < height) && (row >= 0) && (column < width) && (column >= 0);
+            return (row < Game.height) && (row >= 0) && (column < Game.width) && (column >= 0);
         }
     }
 }

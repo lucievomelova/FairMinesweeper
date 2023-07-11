@@ -14,7 +14,7 @@ namespace Minesweeper
             cell.value = 0;
             cell.isKnown = true;
             SetNeighboursToKnown(cell.row, cell.column);
-            PlaceRemainingMines(Values.mines);
+            PlaceRemainingMines(Game.mines);
             SetNumbersAroundMines();
             placeMines.InitHelpArrays();
         }
@@ -49,13 +49,13 @@ namespace Minesweeper
             int minesPlaced = 0;
             while(minesPlaced < numberOfMines)
             {
-                int r = random.Next(0, Values.height);
-                int c = random.Next(0, Values.width);
-                if (!MainWindow.cells[r,c].isOpened && !MainWindow.cells[r,c].IsMine()
-                    && !MainWindow.cells[r,c].isKnown && MainWindow.cells[r,c].value != Values.NUMBER)
+                int r = random.Next(0, Game.height);
+                int c = random.Next(0, Game.width);
+                if (!Game.cells[r,c].isOpened && !Game.cells[r,c].IsMine()
+                    && !Game.cells[r,c].isKnown && Game.cells[r,c].value != Values.NUMBER)
                 {
                     minesPlaced++;
-                    MainWindow.cells[r,c].value = Values.MINE;
+                    Game.cells[r,c].value = Values.MINE;
                 }
             }
         }
@@ -67,21 +67,21 @@ namespace Minesweeper
             int[] arr = {-1, 0, 1};
             foreach (int r in arr)
                 foreach (int c in arr)
-                    if(Values.InBounds(row+r, column+c) && !MainWindow.cells[row+r, column+c].IsMine())
-                        MainWindow.cells[row + r, column + c].isKnown = true;              
+                    if(Values.InBounds(row+r, column+c) && !Game.cells[row+r, column+c].IsMine())
+                        Game.cells[row + r, column + c].isKnown = true;              
         }
 
         // mines are placed, now place numbers in the game field
         private void SetNumbersAroundMines()
         {
-            for (int r = 0; r < Values.height; r++)
+            for (int r = 0; r < Game.height; r++)
             {
-                for (int c = 0; c < Values.width; c++)
+                for (int c = 0; c < Game.width; c++)
                 {
-                    if(MainWindow.cells[r,c].IsMine() || MainWindow.cells[r,c].isOpened) continue;
+                    if(Game.cells[r,c].IsMine() || Game.cells[r,c].isOpened) continue;
                     
                     int number = Neighbours.CountMines(r, c);
-                    MainWindow.cells[r, c].value = number;
+                    Game.cells[r, c].value = number;
                 }
             }
         }
@@ -89,11 +89,11 @@ namespace Minesweeper
         private void PlaceIntoMain()
         {
             foreach (PlaceMines.helpCell h in placeMines.helpArray)
-                MainWindow.cells[h.row, h.column].value = h.value; //set values
+                Game.cells[h.row, h.column].value = h.value; //set values
             
             int minesPlaced = placeMines.helpArray.Cast<PlaceMines.helpCell>().Count(h => h.value == Values.MINE);
-            PlaceRemainingMines(Values.mines - minesPlaced);
-            Values.minesLeft = Values.mines - placeMines.KnownMinesInHelpArray();
+            PlaceRemainingMines(Game.mines - minesPlaced);
+            Game.minesLeft = Game.mines - placeMines.KnownMinesInHelpArray();
             
             SetNumbersAroundMines();
         }

@@ -28,7 +28,7 @@ namespace Minesweeper
             {
                 foreach (helpCell h in helpArray)
                 {
-                    if(MainWindow.cells[h.row, h.column].isKnown)
+                    if(Game.cells[h.row, h.column].isKnown)
                         stateArray[h.row, h.column] = CellState.KNOWN; //we don't care about known cells
                     else if (h.value == Values.MINE)
                         stateArray[h.row, h.column] = CellState.MINE;
@@ -67,26 +67,26 @@ namespace Minesweeper
                 if (counter > 500) return; //this is just to ensure that program doesn't for too long
             }
 
-            for (int r = 0; r < Values.height; r++)
+            for (int r = 0; r < Game.height; r++)
             {
-                for (int c = 0; c < Values.width; c++)
+                for (int c = 0; c < Game.width; c++)
                 {
                     CellState state = stateArray[r, c];
-                    Cell cell = MainWindow.cells[r, c];
+                    Cell cell = Game.cells[r, c];
                     
                     if (state == CellState.MINE) //cell was mine in every combination
                     {
                         if (cell.IsMarked()) continue;
-                        Values.minesLeft--;
-                        MainWindow.cells[r, c].isKnown = true; //mark as known
-                        if(MainWindow.DebugMode)
+                        Game.minesLeft--;
+                        Game.cells[r, c].isKnown = true; //mark as known
+                        if(Game.DebugMode)
                             cell.SetImage(Img.Known);
                     }
                     else if (state == CellState.NUMBER) //cell was number in every combination
                     {
                         if (cell.IsMarked()) continue;
-                        MainWindow.cells[r, c].isKnown = true;//mark as known
-                        if(MainWindow.DebugMode)
+                        Game.cells[r, c].isKnown = true;//mark as known
+                        if(Game.DebugMode)
                             cell.SetImage(Img.Known);
                     }
                 }

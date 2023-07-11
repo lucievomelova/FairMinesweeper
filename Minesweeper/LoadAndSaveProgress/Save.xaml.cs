@@ -34,19 +34,19 @@ namespace Minesweeper
         private string StateToString()
         {
             string model = "";
-            model += Values.height + " " + Values.width + "\n"; // size of game field
+            model += Game.height + " " + Game.width + "\n"; // size of game field
             model += timePassed + "\n"; // how much time already passed
-            model += Values.minesLeft + "\n";
-            model += Values.flagsLeft + "\n";
-            model += Values.unopenedLeft + "\n";
-            model += Values.mines + "\n";
+            model += Game.minesLeft + "\n";
+            model += Game.flagsLeft + "\n";
+            model += Game.unopenedLeft + "\n";
+            model += Game.mines + "\n";
 
 
-            for (int r = 0; r < Values.height; r++)
+            for (int r = 0; r < Game.height; r++)
             {
-                for (int c = 0; c < Values.width; c++)
+                for (int c = 0; c < Game.width; c++)
                 {
-                    Cell cell = MainWindow.cells[r, c];
+                    Cell cell = Game.cells[r, c];
                     model += Encoder.CellToChar(cell);
                 }
 

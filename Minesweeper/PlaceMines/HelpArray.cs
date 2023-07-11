@@ -21,22 +21,22 @@ namespace Minesweeper
 
         public void InitHelpArrays()
         {
-            helpArray = new helpCell[Values.height, Values.width]; //copy of MainWindow.cells
-            parents = new helpCell[Values.height, Values.width];
+            helpArray = new helpCell[Game.height, Game.width]; //copy of MainWindow.cells
+            parents = new helpCell[Game.height, Game.width];
         }
 
         //copy MainWindow.cells to helpArray
         public void CopyField()
         {
-            for (int r = 0; r < Values.height; r++)
+            for (int r = 0; r < Game.height; r++)
             {
-                for (int c = 0; c < Values.width; c++)
+                for (int c = 0; c < Game.width; c++)
                 {
-                    Cell cell = MainWindow.cells[r, c];
+                    Cell cell = Game.cells[r, c];
                     helpArray[r, c].known = true;
 
                     if (cell.isOpened)
-                        helpArray[r, c].value = MainWindow.cells[r, c].value;
+                        helpArray[r, c].value = Game.cells[r, c].value;
 
                     else if (cell.isKnown)
                         helpArray[r, c].value = cell.value >= 0 ? Values.NUMBER : Values.MINE;
@@ -60,7 +60,7 @@ namespace Minesweeper
         {
             int mines = 0;
             foreach (helpCell h in helpArray)
-                if (h.value == Values.MINE && MainWindow.cells[h.row, h.column].isKnown)
+                if (h.value == Values.MINE && Game.cells[h.row, h.column].isKnown)
                     mines++;
 
             return mines;
@@ -94,7 +94,7 @@ namespace Minesweeper
             }
 
             //check if there are enough mines left for current mine placement
-            if (mines > Values.mines || mines + UnknownCellsInHelpArray() < Values.minesLeft)
+            if (mines > Game.mines || mines + UnknownCellsInHelpArray() < Game.minesLeft)
                 return false;
 
             return true;

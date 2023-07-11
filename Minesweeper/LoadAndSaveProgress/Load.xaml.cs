@@ -41,44 +41,44 @@ namespace Minesweeper
                 StreamReader streamReader = new StreamReader(filename);
                 string line = streamReader.ReadLine(); // first line contains dimensions
                 string[] words = line.Split(' ');
-                Int32.TryParse(words[0], out Values.height);
-                Int32.TryParse(words[1], out Values.width);
+                Int32.TryParse(words[0], out Game.height);
+                Int32.TryParse(words[1], out Game.width);
+                
+                mainWindow.ResumeGame(time);
+
 
                 line = streamReader.ReadLine(); // second line contains how much time passed
                 Int32.TryParse(line, out time);
                 line = streamReader.ReadLine(); // third line contains number of mines left
-                Int32.TryParse(line, out Values.minesLeft);
+                Int32.TryParse(line, out Game.minesLeft);
                 line = streamReader.ReadLine(); // fourth line contains number of flags left
-                Int32.TryParse(line, out Values.flagsLeft);
+                Int32.TryParse(line, out Game.flagsLeft);
                 line = streamReader.ReadLine(); // number of unopened cells
-                Int32.TryParse(line, out Values.unopenedLeft);
+                Int32.TryParse(line, out Game.unopenedLeft);
                 line = streamReader.ReadLine(); // total number of mines in current game field
-                Int32.TryParse(line, out Values.mines);
+                Int32.TryParse(line, out Game.mines);
 
                 // remaining lines are game field
-                mainWindow.ResumeGame();
-                for (int r = 0; r < Values.height; r++)
+                for (int r = 0; r < Game.height; r++)
                 {
                     line = streamReader.ReadLine();
-                    for (int c = 0; c < Values.width; c++)
+                    for (int c = 0; c < Game.width; c++)
                     {
-                        Encoder.CharToCell(line[c], MainWindow.cells[r,c]);
+                        Encoder.CharToCell(line[c], Game.cells[r,c]);
                     }
                 }
 
-                for (int r = 0; r < Values.height; r++)
+                for (int r = 0; r < Game.height; r++)
                 {
-                    for (int c = 0; c < Values.width; c++)
+                    for (int c = 0; c < Game.width; c++)
                     {
-                        Cell cell = MainWindow.cells[r, c];
+                        Cell cell = Game.cells[r, c];
                         cell.unknownLeft = Neighbours.CountUnknown(cell);
                         if(cell.value > 0)
                             cell.minesLeft = cell.value - Neighbours.CountKnownMines(cell);
                     }
                 }
                 Open.OpenAfterLoad();
-                mainWindow.timer.SetStartTime(time);
-                mainWindow.timer.Start();
                 Close();
             }
             catch(Exception e)

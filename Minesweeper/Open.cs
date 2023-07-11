@@ -59,7 +59,7 @@ namespace Minesweeper
                 cell.SetImage(Img.Flag);
                 
             SetCell(cell, true, false, false);
-            Values.unopenedLeft--;
+            Game.unopenedLeft--;
         }
 
         public void OpenNumber(Cell cell)
@@ -111,7 +111,7 @@ namespace Minesweeper
         public void OpenMine(Cell cell)
         {
             mainWindow.timer.Stop();
-            mainWindow.previousGame = MainWindow.PreviousGame.LOSE;
+            mainWindow.previousGame = Game.PreviousGame.LOSE;
             
             Img.Set(mainWindow.NewGameButton, Img.GameOver);
             if (cell != null)
@@ -121,11 +121,11 @@ namespace Minesweeper
                 cell.value = Values.MINE_CLICKED;
             }
 
-            for (int r = 0; r < Values.height; r++)
+            for (int r = 0; r < Game.height; r++)
             {
-                for (int c = 0; c < Values.width; c++)
+                for (int c = 0; c < Game.width; c++)
                 {
-                    cell = MainWindow.cells[r, c];
+                    cell = Game.cells[r, c];
                     if (cell.IsMine() && cell.isKnown)
                         cell.SetImage(Img.Mine);
                     
@@ -140,7 +140,7 @@ namespace Minesweeper
         //user won, open whole field
         public void OpenEverything()
         {
-            foreach (Cell cell in MainWindow.cells)
+            foreach (Cell cell in Game.cells)
             {
                 if(cell.value >= 0)
                     cell.SetImage(Img.Number(cell.value));
@@ -152,7 +152,7 @@ namespace Minesweeper
         /// <summary> Called when saved game is loaded from a file to opened cells that were opened before saving </summary>
         public static void OpenAfterLoad()
         {
-            foreach (Cell cell in MainWindow.cells)
+            foreach (Cell cell in Game.cells)
             {
                 if(cell.isOpened)
                     cell.SetImage(Img.Number(cell.value));

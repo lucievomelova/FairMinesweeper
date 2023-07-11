@@ -18,7 +18,7 @@
 
         public PlaceMines()
         {
-            stateArray = new CellState[Values.height, Values.width];
+            stateArray = new CellState[Game.height, Game.width];
         }
     }
 }
