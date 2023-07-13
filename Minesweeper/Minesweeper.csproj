@@ -111,7 +111,6 @@
         <Compile Include="Model.cs" />
         <Compile Include="PlaceMines\BorderArea.cs" />
         <Compile Include="PlaceMines\HelpArray.cs" />
-        <Compile Include="PlaceMines\PlaceMines.cs" />
         <Compile Include="PlaceMines\Sections.cs" />
         <Compile Include="PlaceMines\Solver.cs" />
         <Compile Include="Timer.cs" />

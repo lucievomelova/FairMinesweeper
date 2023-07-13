@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Windows;
 
 namespace Minesweeper
 {
     public partial class Solver
     {
+    
+        
         /// <summary> Find cells that are open and don't have enough known mines around </summary>
         private List<helpCell> FindBorderArea()
         {
@@ -13,7 +17,74 @@ namespace Minesweeper
                 if (h.known && h.unknownMinesLeft > 0 && h.value > 0)
                     area.Add(h);
 
+            
             return area;
+        }
+
+        private int NumberOfSeparateBorderAreas()
+        {
+            var borderArea = FindBorderArea();
+            if (borderArea.Count == 0)
+                return 0;
+            
+            int counter = 0;
+            List<List<helpCell>> areas = new List<List<helpCell>>();
+            areas.Add(new List<helpCell>());
+            areas[0].Add(borderArea[0]);
+            for (int i = 1; i < borderArea.Count; i++)
+            {
+                var currentCell = borderArea[i];
+                bool sameAsCurrentArea = false;
+                // check if current cell is close enough to any cell in current area
+                foreach (helpCell previousCell in areas[counter])
+                {
+                    if (Math.Abs(currentCell.row - previousCell.row) <= 2 &&
+                        Math.Abs(currentCell.column - previousCell.column) <= 2)
+                    {
+                        sameAsCurrentArea = true;
+                        counter++; // it is not close enough -> create new area for it
+                        areas.Add(new List<helpCell>());
+                    }
+                }
+
+                if (!sameAsCurrentArea)
+                {
+                    counter++; // it is not close enough to any cell in previous area -> create new area for it
+                    areas.Add(new List<helpCell>());
+                }
+                areas[counter].Add(currentCell);
+
+            }
+
+            for(int a = 0; a < areas.Count; a++)
+            {
+                var currentArea = areas[a];
+                foreach (helpCell currentCell in currentArea)
+                {
+                    for (int i = 0; i < a; i++)
+                    {
+                        var previousArea = areas[i];
+                        for (int j = 0; j < previousArea.Count; j++)
+                        {
+                            helpCell previousCell = previousArea[j];
+                            if (Math.Abs(currentCell.row - previousCell.row) <= 2 && Math.Abs(currentCell.column - previousCell.column) <= 2)
+                            {
+                                previousArea.AddRange(currentArea);
+                                areas.RemoveAt(a);
+                                a--;
+                                goto skip;
+                            }
+                        }
+                    }
+                }
+
+                skip:;
+
+            }
+
+            MessageBox.Show( areas.Count + "");
+            return areas.Count;
+
         }
 
         /// <summary> Bruteforce for finding known numbers or mines. Every correct combination is computed and if
@@ -100,6 +171,13 @@ namespace Minesweeper
         {
             // A correct combination of mines around area was already found, so mines are already placed around the area.
             // This method takes last combination and tries to find next combination.
+
+            // for (int i = 0; i < numberOfThreads; i++)
+            // {
+            //     threads[i] = new Thread(() => MergeSort(ref right)); // run mergesort in thread
+            //     threads[i].Start();
+            // }
+
             
             //index of current cell in area - starting at last cell, because correct combination was already found, so
             // mines are correctly placed around all cells in area
@@ -117,6 +195,8 @@ namespace Minesweeper
         /// <returns> True if correct combination was found, otherwise false </returns>
         public bool FirstCombinationOnArea()
         {
+            
+            NumberOfSeparateBorderAreas();
             //this method return true as soon as correct combination was found
             
             int index = 0; //index of current cell in area (starting at first cell in list)

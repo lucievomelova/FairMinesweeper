@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Minesweeper
 {
     /// <summary> pre-solves area around open cells in current game (if possible) </summary>
     public partial class Solver
     {
+        private Thread[] threads;
+        private int numberOfThreads;
+        
         private enum CellState
         {
             MINE, 
@@ -23,6 +28,8 @@ namespace Minesweeper
         public Solver()
         {
             stateArray = new CellState[Game.height, Game.width];
+            numberOfThreads = Environment.ProcessorCount;
+            threads = new Thread[numberOfThreads];
         }
 
         /// <summary> count unopened but known numbers in game field </summary>
