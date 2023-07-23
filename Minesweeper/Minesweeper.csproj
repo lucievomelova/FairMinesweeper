@@ -110,6 +110,7 @@
         <Compile Include="Open.cs" />
         <Compile Include="Model.cs" />
         <Compile Include="PlaceMines\BorderArea.cs" />
+        <Compile Include="PlaceMines\Bruteforce.cs" />
         <Compile Include="PlaceMines\HelpArray.cs" />
         <Compile Include="PlaceMines\Sections.cs" />
         <Compile Include="PlaceMines\Solver.cs" />

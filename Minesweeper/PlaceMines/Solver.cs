@@ -8,29 +8,7 @@ namespace Minesweeper
     /// <summary> pre-solves area around open cells in current game (if possible) </summary>
     public partial class Solver
     {
-        private Thread[] threads;
-        private int numberOfThreads;
-        
-        private enum CellState
-        {
-            MINE, 
-            NUMBER, 
-            KNOWN, 
-            UNOPENED
-        }
-
-        /// <summary> Array used for bruteforce. Each cell has a beginning state. If NUMBER or MINE state doesn't change,
-        /// then that cell contains NUMBER or MINE </summary>
-        readonly CellState[,] stateArray;
-        
-        
-
-        public Solver()
-        {
-            stateArray = new CellState[Game.height, Game.width];
-            numberOfThreads = Environment.ProcessorCount;
-            threads = new Thread[numberOfThreads];
-        }
+        public Bruteforce bruteforce = new Bruteforce();
 
         /// <summary> count unopened but known numbers in game field </summary>
         public int KnownNumbers() //
@@ -56,9 +34,10 @@ namespace Minesweeper
                 foreach (Cell neighbour in Neighbours.Get(next))
                     if (neighbour.isOpened && neighbour.unknownLeft != 0)
                         BorderArea.Enqueue(neighbour);
-            } 
-            
-            TryAll();
+            }
+
+            bruteforce.TryAll();
+            UpdateGameFieldImages();
         }
 
         /// <summary> Count known mines and unknown cells around cell. If number of known mines == cell.value or
@@ -104,5 +83,36 @@ namespace Minesweeper
 
             return counter;
         }
+        
+        
+        
+        private void UpdateGameFieldImages()
+        {
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Cell cell = Game.cells[r, c];
+                    CellState state = cell.longTermState;
+
+                    if (state == CellState.MINE) //cell was mine in every combination
+                    {
+                        if (cell.IsMarked()) continue;
+                        Game.minesLeft--;
+                        cell.isKnown = true; //mark as known
+                        if(Game.DebugMode && !cell.isOpened)
+                            cell.SetImage(Img.Known);
+                    }
+                    else if (state == CellState.NUMBER) //cell was number in every combination
+                    {
+                        if (cell.IsMarked()) continue;
+                        cell.isKnown = true; //mark as known
+                        if(Game.DebugMode && !cell.isOpened)
+                            cell.SetImage(Img.Known);
+                    }
+                }
+            }
+        }
+        
     }
 }

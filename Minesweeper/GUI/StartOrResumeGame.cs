@@ -12,7 +12,6 @@
             timer.Stop();
             previousGame = Game.PreviousGame.NORMAL;
             newGame = false;
-            model.solver.InitHelpArrays();
             TimeLabel.Content = time.ToString("D3");
         }
         

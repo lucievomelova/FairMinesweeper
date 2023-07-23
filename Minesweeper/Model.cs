@@ -16,7 +16,6 @@ namespace Minesweeper
             SetNeighboursToKnown(cell.row, cell.column);
             PlaceRemainingMines(Game.mines);
             SetNumbersAroundMines();
-            solver.InitHelpArrays();
         }
 
         /// <summary> when there are no known unopened numbers left, player can click on any unknown cell and there has
@@ -25,15 +24,7 @@ namespace Minesweeper
         /// <returns> true if reGeneration was successful </returns>
         public bool ReGenerate(Cell cell = null)
         {
-            solver.CopyField();
-            if (cell != null)
-            {
-                solver.helpArray[cell.row, cell.column].value = Values.NUMBER;
-                solver.helpArray[cell.row, cell.column].known = true;
-            }
-
-            solver.SplitIntoSections();
-            bool success = solver.FirstCombinationOnArea();
+            bool success = solver.bruteforce.FindCombinationOnReGeneration(cell);
             if (success)
             {
                 PlaceIntoMain();
@@ -88,13 +79,18 @@ namespace Minesweeper
 
         private void PlaceIntoMain()
         {
-            foreach (Solver.helpCell h in solver.helpArray)
-                Game.cells[h.row, h.column].value = h.value; //set values
+            Game.minesLeft = Game.mines;
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Cell cell = Game.cells[r, c];
+                    if (cell.IsMine())
+                        Game.minesLeft--;
+                }
+            }
             
-            int minesPlaced = solver.helpArray.Cast<Solver.helpCell>().Count(h => h.value == Values.MINE);
-            PlaceRemainingMines(Game.mines - minesPlaced);
-            Game.minesLeft = Game.mines - solver.KnownMinesInHelpArray();
-            
+            PlaceRemainingMines(Game.minesLeft);
             SetNumbersAroundMines();
         }
     }

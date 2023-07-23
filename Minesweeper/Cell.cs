@@ -1,8 +1,19 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Minesweeper
 {
+    public enum CellState
+    {
+        MINE, 
+        NUMBER, 
+        KNOWN, 
+        UNOPENED, 
+        UNKNOWN,
+        NONE
+    }
+    
     public class Cell
     {
         public int row;
@@ -33,6 +44,14 @@ namespace Minesweeper
         /// <summary> corresponding Button on the game field </summary>
         public readonly Button btn;
 
+        public CellState currentState = CellState.NONE;
+
+        public CellState longTermState = CellState.NONE;
+
+        public Cell parent;
+
+        public List<Cell> children;
+
         public Cell(int row, int column)
         {
             this.row = row;
@@ -45,6 +64,8 @@ namespace Minesweeper
             isQuestionMark = false;
             isKnown = false;
             btn = new Button();
+            parent = this;
+            children = new List<Cell>();
         }
         
         public void SetImage(BitmapImage img) { Img.Set(btn, img); }
