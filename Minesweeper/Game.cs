@@ -32,8 +32,8 @@ namespace Minesweeper
             LOSE //player lost last game
         }
 
-        /// <summary> true if Debug Mode is on. In Debug Mode, known cells are highlighted </summary>
-        public static bool DebugMode = true;
+        /// <summary> true if the user wants known cells to be highlighted </summary>
+        public static bool HighlightKnownCells = true;
         
         /// <summary> find cell which is represented by button *btn* </summary>
         public static Cell FindCell(Button btn)

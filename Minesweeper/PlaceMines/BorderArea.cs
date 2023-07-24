@@ -148,14 +148,14 @@
 //                         if (cell.IsMarked()) continue;
 //                         Game.minesLeft--;
 //                         Game.cells[r, c].isKnown = true; //mark as known
-//                         if(Game.DebugMode)
+//                         if(Game.HighlightKnownCells)
 //                             cell.SetImage(Img.Known);
 //                     }
 //                     else if (state == CellState.NUMBER) //cell was number in every combination
 //                     {
 //                         if (cell.IsMarked()) continue;
 //                         Game.cells[r, c].isKnown = true;//mark as known
-//                         if(Game.DebugMode)
+//                         if(Game.HighlightKnownCells)
 //                             cell.SetImage(Img.Known);
 //                     }
 //                 }

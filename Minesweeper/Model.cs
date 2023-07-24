@@ -85,7 +85,7 @@ namespace Minesweeper
                 for (int c = 0; c < Game.width; c++)
                 {
                     Cell cell = Game.cells[r, c];
-                    if (cell.IsMine())
+                    if (cell.IsMine() && cell.isKnown)
                         Game.minesLeft--;
                 }
             }

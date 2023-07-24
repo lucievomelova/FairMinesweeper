@@ -102,12 +102,6 @@ namespace Minesweeper
             if (unresolvedAreas == null)
                 return;
             
-            List<Cell> neighbourArea = GetUnopenedNeighbours(unresolvedCells);
-            foreach(Cell cell in neighbourArea)
-                cell.SetImage(Img.QuestionMark);
-
-            //TryAllCombinationsOnArea(unresolvedAreas[0]); // solve first openedArea by main thread because it is definitely free
-            
             for (int i = 0; i < unresolvedAreas.Count; i++)
             {
                 int threadNum = i % numberOfThreads; // default thread number
@@ -141,7 +135,7 @@ namespace Minesweeper
         private void TryAllCombinationsOnArea(List<Cell> openedArea)
         {
             List<Cell> neighbourArea = GetUnopenedNeighbours(openedArea);
-            FindAllCombinations(openedArea, neighbourArea, 0, 0);
+            FindAllCombinations(openedArea, neighbourArea, 0, 0, Game.minesLeft);
         }
 
         private void FindCombinationsOnArea(List<Cell> openedArea)
@@ -169,7 +163,7 @@ namespace Minesweeper
         }
         
 
-        private void FindAllCombinations(List<Cell> openedArea, List<Cell> neighbourArea, int neighbourIndex, int openCellIndex)
+        private void FindAllCombinations(List<Cell> openedArea, List<Cell> neighbourArea, int neighbourIndex, int openCellIndex, int minesLeft)
         {
             if (neighbourIndex == neighbourArea.Count)
             {
@@ -183,21 +177,23 @@ namespace Minesweeper
             
 
             Cell neighbour = neighbourArea[neighbourIndex];
-            Cell openCell = openedArea[openCellIndex];
-            while (!Neighbours.Get(openCell).Contains(neighbour))
+
+            // check if mine can be placed on this position
+            bool possibleMine = true;
+            foreach (Cell neighboursNeighbour in Neighbours.Get(neighbour))
             {
-                openCellIndex = openCellIndex + 1 % openedArea.Count;
-                openCell = openedArea[openCellIndex];
+                if (neighboursNeighbour.isOpened && CountPlacedMines(neighboursNeighbour) >= neighboursNeighbour.value)
+                    possibleMine = false;
             }
 
-            if (CountPlacedMines(openCell) < openCell.value)
+            if (possibleMine && minesLeft > 0) // try to place mine here if possible
             {
                 neighbour.currentState = CellState.MINE;
-                FindAllCombinations(openedArea, neighbourArea, neighbourIndex + 1, openCellIndex);
+                FindAllCombinations(openedArea, neighbourArea, neighbourIndex + 1, openCellIndex, minesLeft-1);
             }
 
-            neighbour.currentState = CellState.NUMBER;
-            FindAllCombinations(openedArea, neighbourArea, neighbourIndex + 1, openCellIndex);
+            neighbour.currentState = CellState.NUMBER; // try to place number
+            FindAllCombinations(openedArea, neighbourArea, neighbourIndex + 1, openCellIndex, minesLeft);
         }
 
         
@@ -312,7 +308,7 @@ namespace Minesweeper
             var neighbours = Neighbours.Get(cell);
             foreach (Cell neighbour in neighbours)
             {
-                if (neighbour.IsMine())
+                if (neighbour.isKnown && neighbour.IsMine())
                     count++;
                 else if (neighbour.currentState == CellState.MINE)
                     count++;

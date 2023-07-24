@@ -60,7 +60,7 @@ namespace Minesweeper
             {
                 if (neighbour.isKnown) continue;
                 
-                if(Game.DebugMode && !neighbour.IsMarked())
+                if(Game.HighlightKnownCells && !neighbour.IsMarked())
                     neighbour.SetImage(Img.Known);
                 
                 neighbour.isKnown = true;
@@ -100,14 +100,14 @@ namespace Minesweeper
                         if (cell.IsMarked()) continue;
                         Game.minesLeft--;
                         cell.isKnown = true; //mark as known
-                        if(Game.DebugMode && !cell.isOpened)
+                        if(Game.HighlightKnownCells && !cell.isOpened)
                             cell.SetImage(Img.Known);
                     }
                     else if (state == CellState.NUMBER) //cell was number in every combination
                     {
                         if (cell.IsMarked()) continue;
                         cell.isKnown = true; //mark as known
-                        if(Game.DebugMode && !cell.isOpened)
+                        if(Game.HighlightKnownCells && !cell.isOpened)
                             cell.SetImage(Img.Known);
                     }
                 }

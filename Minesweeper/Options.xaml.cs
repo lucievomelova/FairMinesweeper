@@ -37,9 +37,9 @@ namespace Minesweeper
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             if(DebugModeRadioBtn.IsChecked == true)
-                Game.DebugMode = true;
+                Game.HighlightKnownCells = true;
             else
-                Game.DebugMode = false;
+                Game.HighlightKnownCells = false;
 
             SetDifficulty();
             
