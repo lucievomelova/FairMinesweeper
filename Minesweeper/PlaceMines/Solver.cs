@@ -36,7 +36,7 @@ namespace Minesweeper
                         BorderArea.Enqueue(neighbour);
             }
 
-            bruteforce.TryAll();
+            bruteforce.TryAllCombinations();
             UpdateGameField();
         }
 

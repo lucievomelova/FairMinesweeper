@@ -33,6 +33,7 @@ namespace Minesweeper
         /// <returns> true if reGeneration was successful </returns>
         public bool ReGenerate(Cell cell = null)
         {
+            cell.value = Values.NUMBER;
             bool success = solver.bruteforce.FindCombinationOnReGeneration(cell);
             if (!success)
                 return false;
