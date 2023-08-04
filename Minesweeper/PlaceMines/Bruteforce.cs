@@ -7,7 +7,7 @@ using Area = System.Collections.Generic.List<Minesweeper.Cell>;
 namespace Minesweeper
 {
     
-    public class Bruteforce
+    public partial class Bruteforce
     {
         /// <summary> Array of additional threads used for bruteforce </summary>
         private Thread[] threads;
@@ -186,7 +186,7 @@ namespace Minesweeper
         /// <summary> Method that is called from additional threads, that calls the bruteforce algorithm </summary>
         private void TryAllCombinationsOnArea(Area openedArea)
         {
-            Area neighbourArea = GetUnopenedNeighbours(openedArea);
+            Area neighbourArea = GetUnknownNeighbours(openedArea);
             FindAllCombinations(openedArea, neighbourArea, 0, Game.minesLeft);
         }
 
@@ -196,7 +196,7 @@ namespace Minesweeper
         /// <param name="neighbourArea"> Unknown neighbors </param>
         /// <param name="index"> Index of the current neighbor cell (because the method is called recursively, in each
         /// call the value of a different cell is set. </param>
-        /// <param name="minesLeft"> Number of mines that can be placed on the game field </param>
+        /// <param name="minesLeft"> Number of mines that can be placed on the unopened part of the game field </param>
         private void FindAllCombinations(Area openedArea, Area neighbourArea, int index, int minesLeft)
         {
             // bottom of recursion
@@ -228,16 +228,10 @@ namespace Minesweeper
             FindAllCombinations(openedArea, neighbourArea, index + 1, minesLeft);
         }
 
-        
-        private void FindCombinationsOnArea(Area openedArea)
-        {
-            Area neighbourArea = GetUnopenedNeighbours(openedArea);
-            bool stop = false;
-            FindCombination(openedArea, neighbourArea, 0, Game.minesLeft, ref stop);
-        }
-
-
-        private Area GetUnopenedNeighbours(Area area)
+        /// <summary> Find all unknown neighbors of given area of cells</summary>
+        /// <param name="area"> Opened cells whose neighbors we are checking </param>
+        /// <returns> Unknown neighbors </returns>
+        private Area GetUnknownNeighbours(Area area)
         {
             Area neighbourArea = new Area();
             foreach (Cell cell in area)
@@ -254,101 +248,14 @@ namespace Minesweeper
         }
         
 
-        
-        
-        private void FindCombination(Area openedArea, Area neighbourArea, int index, int minesLeft, ref bool stop)
+        /// <summary> Save current mine placement on areas that are being computed. This method uses cells longTermState.
+        /// When currentState is the same as longTermState, it is possible that this cell will have this value (state).
+        /// But if they differ (MINE x NUMBER), then we can't figure out which value this cell will have (so it will
+        /// be UNKNOWN). </summary>
+        /// <param name="area"> Area of cells that we want to save </param>
+        private void SaveCurrentCombination(Area area)
         {
-            if (index == neighbourArea.Count)
-            {
-                bool correct = CorrectMinePlacement(openedArea); 
-                if (correct)
-                {
-                    // SaveCurrentCombination(neighbourArea);
-                    stop = true; // stop if correct placement was found
-                }
-                return;
-            }
-            
-            Cell neighbour = neighbourArea[index];
-
-            // check if mine can be placed on this position
-            bool possibleMine = true;
-            foreach (Cell neighboursNeighbour in Neighbours.Get(neighbour))
-            {
-                if (neighboursNeighbour.isOpened && CountPlacedMines(neighboursNeighbour) >= neighboursNeighbour.value)
-                    possibleMine = false;
-            }
-
-            if (!stop)
-            {
-                if (possibleMine && minesLeft > 0) // try to place mine here if possible
-                {
-                    neighbourArea[index].longTermState = CellState.MINE;
-                    neighbourArea[index].currentState = CellState.MINE;
-                    FindCombination(openedArea, neighbourArea, index + 1, minesLeft - 1, ref stop);
-                }
-            }
-            if (!stop)
-            {
-                neighbourArea[index].longTermState = CellState.NUMBER;
-                neighbourArea[index].currentState = CellState.NUMBER;
-                FindCombination(openedArea, neighbourArea, index + 1, minesLeft, ref stop);
-            }
-        }
-        
-
-        public bool FindCombinationOnReGeneration(Cell clickedCell)
-        {
-            Init();
-            var unresolvedCells = FindUnresolvedOpenCells();
-            clickedCell.longTermState = CellState.NUMBER;
-            if (unresolvedCells.Contains(clickedCell))
-                unresolvedCells.Remove(clickedCell);
-            
-            var unresolvedAreas = SplitAreaIntoNonneighboringAreas(unresolvedCells);
-            if (unresolvedAreas == null)
-                return true;
-            
-            
-            foreach (Area area in unresolvedAreas)
-                foreach (Cell cell in area)
-                    cell.longTermState = CellState.NONE;
-            
-            for (int i = 0; i < unresolvedAreas.Count; i++)
-            {
-                int threadNum = i % numberOfThreads; // default thread number
-                for (int t = 0; t < numberOfThreads; t++)
-                {
-                    if (threads[t] == null || !threads[t].IsAlive) // thread that is not doing anything now
-                    {
-                        threadNum = t;
-                        break;
-                    }
-                }
-
-                if (threadNum == i % numberOfThreads)
-                {
-                    if(threads[threadNum] != null && threads[threadNum].ThreadState == ThreadState.Running)
-                        threads[threadNum].Join();
-                }
-                
-                var area = unresolvedAreas[i];
-                threads[threadNum] = new Thread(() => FindCombinationsOnArea(area)); 
-                threads[threadNum].Start();
-            }
-            
-            for (int t = 0; t < numberOfThreads; t++)
-            {
-                if (threads[t] != null && threads[t].ThreadState == ThreadState.Running)
-                    threads[t].Join();
-            }
-
-            return true;
-        }
-
-        private void SaveCurrentCombination(Area neighbourArea)
-        {
-            foreach (Cell cell in neighbourArea)
+            foreach (Cell cell in area)
             {
                 if (cell.longTermState == CellState.NONE)
                     cell.longTermState = cell.currentState;
@@ -358,6 +265,9 @@ namespace Minesweeper
         }
 
 
+        /// <summary> Check whether each cell in given area has the correct number of cells around </summary>
+        /// <param name="area"> List of cells </param>
+        /// <returns> True if given mine placement is correct, false otherwise </returns>
         private bool CorrectMinePlacement(Area area)
         {
             foreach (Cell cell in area)
@@ -365,10 +275,11 @@ namespace Minesweeper
                 if (cell.IsNumber() && cell.value != CountPlacedMines(cell))
                     return false;
             }
-
             return true;
         }
 
+        /// <summary> Count mines around given cell </summary>
+        /// <returns> NUmber of mines around the cell </returns>
         private int CountPlacedMines(Cell cell)
         {
             int count = 0;

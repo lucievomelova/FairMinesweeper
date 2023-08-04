@@ -111,6 +111,7 @@
         <Compile Include="Open.cs" />
         <Compile Include="Model.cs" />
         <Compile Include="PlaceMines\Bruteforce.cs" />
+        <Compile Include="PlaceMines\FindCorrectMinePlacementOnReGeneration.cs" />
         <Compile Include="PlaceMines\Solver.cs" />
         <Compile Include="Timer.cs" />
         <Compile Include="Values.cs" />
