@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 
 namespace Minesweeper
 {
@@ -11,6 +12,14 @@ namespace Minesweeper
         /// <summary> generate new game field </summary>
         public void Generate(Cell cell)
         {
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Game.cells[r, c].value = Values.UNKNOWN;
+                }
+            }
+
             cell.value = 0;
             cell.isKnown = true;
             SetNeighboursToKnown(cell.row, cell.column);
@@ -29,7 +38,18 @@ namespace Minesweeper
                 return false;
             
             PlaceIntoMain();
-            solver.UpdateGameField();
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Cell x = Game.cells[r, c];
+                    if(x.IsMine() && x.isKnown && !x.IsMarked())
+                        x.SetImage(Img.Purple);
+                    if(x.IsMine() && !x.isKnown )
+                        x.SetImage(Img.Blue);
+                }
+            }
+
             success = solver.CheckCorrectMinePlacement();
             return success;
             
@@ -44,8 +64,9 @@ namespace Minesweeper
             {
                 int r = random.Next(0, Game.height);
                 int c = random.Next(0, Game.width);
-                if (!Game.cells[r,c].isOpened && !Game.cells[r,c].IsMine()
-                    && !Game.cells[r,c].isKnown && Game.cells[r,c].value != Values.NUMBER)
+                // if (!Game.cells[r,c].isOpened && !Game.cells[r,c].IsMine()
+                //     && !Game.cells[r,c].isKnown && Game.cells[r,c].value != Values.NUMBER)
+                if (!Game.cells[r,c].isOpened && Game.cells[r,c].value == Values.UNKNOWN)
                 {
                     minesPlaced++;
                     Game.cells[r,c].value = Values.MINE;
@@ -60,8 +81,11 @@ namespace Minesweeper
             int[] arr = {-1, 0, 1};
             foreach (int r in arr)
                 foreach (int c in arr)
-                    if(Values.InBounds(row+r, column+c) && !Game.cells[row+r, column+c].IsMine())
-                        Game.cells[row + r, column + c].isKnown = true;              
+                if (Values.InBounds(row + r, column + c) && !Game.cells[row + r, column + c].IsMine())
+                {
+                    Game.cells[row + r, column + c].isKnown = true;
+                    Game.cells[row + r, column + c].value = Values.NUMBER;
+                }
         }
 
         // mines are placed, now place numbers in the game field
@@ -83,6 +107,7 @@ namespace Minesweeper
         private void PlaceIntoMain()
         {
             Game.minesLeft = Game.mines;
+            int unknownMinesPlaced = 0;
             for (int r = 0; r < Game.height; r++)
             {
                 for (int c = 0; c < Game.width; c++)
@@ -93,16 +118,22 @@ namespace Minesweeper
                     else if (cell.longTermState == CellState.MINE)
                     {
                         cell.value = Values.MINE;
-                        Game.minesLeft--;
+                        if(!cell.IsMarked())
+                            cell.SetImage(Img.Purple);
+                        cell.longTermState = CellState.NONE;
+                        unknownMinesPlaced++;
                     }
                     else if (cell.longTermState == CellState.NUMBER)
+                    {
                         cell.value = Values.NUMBER;
+                        cell.longTermState = CellState.NONE;
+                    }
                     else if (!cell.isKnown)
                         cell.value = Values.UNKNOWN;
                 }
             }
             
-            PlaceRemainingMines(Game.minesLeft);
+            PlaceRemainingMines(Game.minesLeft - unknownMinesPlaced);
             SetNumbersAroundMines();
         }
     }

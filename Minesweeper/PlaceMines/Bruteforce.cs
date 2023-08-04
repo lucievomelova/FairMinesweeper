@@ -4,13 +4,14 @@ using System.Threading;
 
 namespace Minesweeper
 {
+    
     public partial class Bruteforce
     {
-        
-        
         private Thread[] threads;
         private int numberOfThreads;
         private List<List<Cell>> previousBorderAreas;
+        
+        
         
         private void Init()
         {
@@ -170,7 +171,7 @@ namespace Minesweeper
         {
             List<Cell> neighbourArea = GetUnopenedNeighbours(openedArea);
             bool stop = false;
-            FindCombination(openedArea, neighbourArea, 0, ref stop);
+            FindCombination(openedArea, neighbourArea, 0, Game.minesLeft, ref stop);
         }
 
 
@@ -225,26 +226,44 @@ namespace Minesweeper
         }
 
         
-        private void FindCombination(List<Cell> openedArea, List<Cell> neighbourArea, int index, ref bool stop)
+        private void FindCombination(List<Cell> openedArea, List<Cell> neighbourArea, int index, int minesLeft, ref bool stop)
         {
             if (index == neighbourArea.Count)
             {
                 bool correct = CorrectMinePlacement(openedArea); 
                 if (correct)
                 {
-                    SaveCurrentCombination(neighbourArea);
+                    // SaveCurrentCombination(neighbourArea);
                     stop = true; // stop if correct placement was found
                 }
                 return;
             }
- 
-            neighbourArea[index].currentState = CellState.MINE;
-            if(!stop)
-                FindCombination(openedArea, neighbourArea, index + 1, ref stop);
- 
-            neighbourArea[index].currentState = CellState.NUMBER;
-            if(!stop)
-                FindCombination(openedArea, neighbourArea, index + 1, ref stop);
+            
+            Cell neighbour = neighbourArea[index];
+
+            // check if mine can be placed on this position
+            bool possibleMine = true;
+            foreach (Cell neighboursNeighbour in Neighbours.Get(neighbour))
+            {
+                if (neighboursNeighbour.isOpened && CountPlacedMines(neighboursNeighbour) >= neighboursNeighbour.value)
+                    possibleMine = false;
+            }
+
+            if (!stop)
+            {
+                if (possibleMine && minesLeft > 0) // try to place mine here if possible
+                {
+                    neighbourArea[index].longTermState = CellState.MINE;
+                    neighbourArea[index].currentState = CellState.MINE;
+                    FindCombination(openedArea, neighbourArea, index + 1, minesLeft - 1, ref stop);
+                }
+            }
+            if (!stop)
+            {
+                neighbourArea[index].longTermState = CellState.NUMBER;
+                neighbourArea[index].currentState = CellState.NUMBER;
+                FindCombination(openedArea, neighbourArea, index + 1, minesLeft, ref stop);
+            }
         }
         
 
@@ -265,6 +284,7 @@ namespace Minesweeper
             //     SaveCurrentCombination(area);
             // }
             // RemoveSameAsPreviousAreas(unresolvedAreas);
+            
             foreach (List<Cell> area in unresolvedAreas)
             {
                 foreach (Cell cell in area)
@@ -302,19 +322,19 @@ namespace Minesweeper
                     threads[t].Join();
             }
             
-            
-            // check correct mine placement
             // for (int r = 0; r < Game.height; r++)
             // {
-            //      for (int c = 0; c < Game.width; c++)
-            //      {
-            //          Cell cell = Game.cells[r, c];
-            //          if (cell.IsNumber() && cell.value != CountPlacedMines(cell))
-            //              return false;
-            //      }
-            //  }
-            
-            
+            //     for (int c = 0; c < Game.width; c++)
+            //     {
+            //         Cell cell = Game.cells[r, c];
+            //         CellState state = cell.longTermState;
+            //
+            //         if (state == CellState.MINE) //cell was mine in every combination
+            //             cell.value = Values.MINE;
+            //         else if (state == CellState.NUMBER) //cell was number in every combination
+            //             cell.value = Values.NUMBER;
+            //     }
+            // }
 
             return true;
         }

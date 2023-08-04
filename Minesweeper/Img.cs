@@ -10,6 +10,9 @@ namespace Minesweeper
         public static BitmapImage Empty = new BitmapImage(new Uri("pic/blank.png", UriKind.Relative));
         public static BitmapImage Known = new BitmapImage(new Uri("pic/pink_blank.png", UriKind.Relative));
         
+        public static BitmapImage Blue = new BitmapImage(new Uri("pic/blue_blank.png", UriKind.Relative));
+        public static BitmapImage Purple = new BitmapImage(new Uri("pic/purple_blank.png", UriKind.Relative));
+        
         public static BitmapImage QuestionMark = new BitmapImage(new Uri("pic/question_mark.png", UriKind.Relative));
         public static BitmapImage Flag = new BitmapImage(new Uri("pic/flag.png", UriKind.Relative));
         

@@ -48,11 +48,12 @@ namespace Minesweeper
                 
                 mainWindow.ResumeGame(time);
 
-
                 line = streamReader.ReadLine(); // third line contains number of mines left
                 Int32.TryParse(line, out Game.minesLeft);
                 line = streamReader.ReadLine(); // fourth line contains number of flags left
                 Int32.TryParse(line, out Game.flagsLeft);
+                mainWindow.MinesLeftLabel.Content = Game.flagsLeft;
+                
                 line = streamReader.ReadLine(); // number of unopened cells
                 Int32.TryParse(line, out Game.unopenedLeft);
                 line = streamReader.ReadLine(); // total number of mines in current game field

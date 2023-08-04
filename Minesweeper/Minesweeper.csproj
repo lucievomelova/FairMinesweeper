@@ -170,6 +170,8 @@
       <Content Include="bin\Debug\pic\icon.png" />
       <Content Include="bin\Debug\pic\mine.jpg" />
       <Content Include="bin\Debug\pic\pink_blank.jpg" />
+      <Content Include="bin\Debug\pic\blue_blank.jpg" />
+      <Content Include="bin\Debug\pic\purple_blank.jpg" />
       <Content Include="bin\Debug\pic\question_mark.jpg" />
       <Content Include="bin\Debug\pic\smiley.jpg" />
       <Content Include="bin\Debug\pic\smiley_down.jpg" />
@@ -192,6 +194,8 @@
       <Content Include="pic\mine.png" />
       <Content Include="pic\mine_clicked.png" />
       <Content Include="pic\pink_blank.png" />
+      <Content Include="pic\blue_blank.png" />
+      <Content Include="pic\purple_blank.png" />
       <Content Include="pic\question_mark.png" />
       <Content Include="pic\smiley.png" />
       <Content Include="pic\smiley_down.png" />

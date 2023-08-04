@@ -99,6 +99,7 @@ namespace Minesweeper
                         if (cell.IsMarked()) continue;
                         Game.minesLeft--;
                         cell.isKnown = true; //mark as known
+                        cell.longTermState = CellState.NONE;
                         if(Game.HighlightKnownCells && !cell.isOpened)
                             cell.SetImage(Img.Known);
                     }
@@ -106,6 +107,7 @@ namespace Minesweeper
                     {
                         if (cell.IsMarked()) continue;
                         cell.isKnown = true; //mark as known
+                        cell.longTermState = CellState.NONE;
                         if(Game.HighlightKnownCells && !cell.isOpened)
                             cell.SetImage(Img.Known);
                     }
@@ -121,7 +123,9 @@ namespace Minesweeper
                 {
                     Cell cell = Game.cells[r, c];
                     if (cell.IsNumber() && cell.value != Neighbours.CountMines(cell))
+                    {
                         return false;
+                    }
                 }
             }
 
