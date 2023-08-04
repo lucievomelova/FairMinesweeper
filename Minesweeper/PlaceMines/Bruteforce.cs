@@ -10,6 +10,7 @@ namespace Minesweeper
         
         private Thread[] threads;
         private int numberOfThreads;
+        private List<List<Cell>> previousBorderAreas;
         
         private void Init()
         {
@@ -91,16 +92,40 @@ namespace Minesweeper
 
              return splitAreas;
         }
-        
-        
+
+        private void RemoveSameAsPreviousAreas(List<List<Cell>> unresolvedAreas)
+        {
+            if (previousBorderAreas == null || unresolvedAreas == null)
+                return;
+            foreach (var prev in previousBorderAreas)
+            {
+                for (int i = 0; i < unresolvedAreas.Count; i++)
+                {
+                    var current = unresolvedAreas[i];
+                    if (prev.Equals(current))
+                    {
+                        unresolvedAreas.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+
         public void TryAll()
         {
             Init();
             var unresolvedCells = FindUnresolvedOpenCells();
             var unresolvedAreas = SplitAreaIntoNonneighboringAreas(unresolvedCells);
+            RemoveSameAsPreviousAreas(unresolvedAreas);
             
             if (unresolvedAreas == null)
                 return;
+            
+            foreach (List<Cell> area in unresolvedAreas)
+                foreach (Cell cell in area)
+                    cell.longTermState = CellState.NONE;
+
             
             for (int i = 0; i < unresolvedAreas.Count; i++)
             {
@@ -130,6 +155,9 @@ namespace Minesweeper
                 if (threads[t] != null && threads[t].ThreadState == ThreadState.Running)
                     threads[t].Join();
             }
+
+            unresolvedCells = FindUnresolvedOpenCells();
+            previousBorderAreas = SplitAreaIntoNonneighboringAreas(unresolvedCells);
         }
 
         private void TryAllCombinationsOnArea(List<Cell> openedArea)
@@ -229,13 +257,23 @@ namespace Minesweeper
                 unresolvedCells.Remove(clickedCell);
             
             var unresolvedAreas = SplitAreaIntoNonneighboringAreas(unresolvedCells);
-            
             if (unresolvedAreas == null)
                 return true;
-
-            FindCombinationsOnArea(unresolvedAreas[0]); // solve first openedArea by main thread because it is definitely free
             
-            for (int i = 1; i < unresolvedAreas.Count; i++)
+            // foreach (List<Cell> area in unresolvedAreas)
+            // {
+            //     SaveCurrentCombination(area);
+            // }
+            // RemoveSameAsPreviousAreas(unresolvedAreas);
+            foreach (List<Cell> area in unresolvedAreas)
+            {
+                foreach (Cell cell in area)
+                {
+                    cell.longTermState = CellState.NONE;
+                }
+            }
+            
+            for (int i = 0; i < unresolvedAreas.Count; i++)
             {
                 int threadNum = i % numberOfThreads; // default thread number
                 for (int t = 0; t < numberOfThreads; t++)
@@ -266,15 +304,17 @@ namespace Minesweeper
             
             
             // check correct mine placement
-            for (int r = 0; r < Game.height; r++)
-            {
-                 for (int c = 0; c < Game.width; c++)
-                 {
-                     Cell cell = Game.cells[r, c];
-                     if (cell.IsNumber() && cell.value != CountPlacedMines(cell))
-                         return false;
-                 }
-             }
+            // for (int r = 0; r < Game.height; r++)
+            // {
+            //      for (int c = 0; c < Game.width; c++)
+            //      {
+            //          Cell cell = Game.cells[r, c];
+            //          if (cell.IsNumber() && cell.value != CountPlacedMines(cell))
+            //              return false;
+            //      }
+            //  }
+            
+            
 
             return true;
         }

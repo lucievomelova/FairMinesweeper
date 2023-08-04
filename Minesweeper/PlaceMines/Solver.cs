@@ -37,7 +37,7 @@ namespace Minesweeper
             }
 
             bruteforce.TryAll();
-            UpdateGameFieldImages();
+            UpdateGameField();
         }
 
         /// <summary> Count known mines and unknown cells around cell. If number of known mines == cell.value or
@@ -83,10 +83,9 @@ namespace Minesweeper
 
             return counter;
         }
-        
-        
-        
-        private void UpdateGameFieldImages()
+
+
+        public void UpdateGameField()
         {
             for (int r = 0; r < Game.height; r++)
             {
@@ -112,6 +111,21 @@ namespace Minesweeper
                     }
                 }
             }
+        }
+
+        public bool CheckCorrectMinePlacement()
+        {
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Cell cell = Game.cells[r, c];
+                    if (cell.IsNumber() && cell.value != Neighbours.CountMines(cell))
+                        return false;
+                }
+            }
+
+            return true;
         }
         
     }

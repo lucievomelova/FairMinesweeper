@@ -70,6 +70,7 @@ namespace Minesweeper
                     open.OpenNeighbours(cell);
             }
             CheckWin();
+            
         }
         
         

@@ -25,12 +25,14 @@ namespace Minesweeper
         public bool ReGenerate(Cell cell = null)
         {
             bool success = solver.bruteforce.FindCombinationOnReGeneration(cell);
-            if (success)
-            {
-                PlaceIntoMain();
-                return true;
-            }
-            return false;
+            if (!success)
+                return false;
+            
+            PlaceIntoMain();
+            solver.UpdateGameField();
+            success = solver.CheckCorrectMinePlacement();
+            return success;
+            
         }
         
         /// <summary> place remaining mines randomly in game field </summary>
@@ -69,9 +71,10 @@ namespace Minesweeper
             {
                 for (int c = 0; c < Game.width; c++)
                 {
-                    if(Game.cells[r,c].IsMine() || Game.cells[r,c].isOpened) continue;
+                    Cell cell = Game.cells[r, c];
+                    if(cell.IsMine() || cell.isOpened) continue;
                     
-                    int number = Neighbours.CountMines(r, c);
+                    int number = Neighbours.CountMines(cell);
                     Game.cells[r, c].value = number;
                 }
             }
@@ -87,6 +90,15 @@ namespace Minesweeper
                     Cell cell = Game.cells[r, c];
                     if (cell.IsMine() && cell.isKnown)
                         Game.minesLeft--;
+                    else if (cell.longTermState == CellState.MINE)
+                    {
+                        cell.value = Values.MINE;
+                        Game.minesLeft--;
+                    }
+                    else if (cell.longTermState == CellState.NUMBER)
+                        cell.value = Values.NUMBER;
+                    else if (!cell.isKnown)
+                        cell.value = Values.UNKNOWN;
                 }
             }
             

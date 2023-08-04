@@ -60,9 +60,8 @@ namespace Minesweeper
             return Get(cell).Count(h => h.value == Values.MINE && h.isFlag);
         }
 
-        public static int CountMines(int row, int column)
+        public static int CountMines(Cell cell)
         {
-            Cell cell = Game.cells[row, column];
             return Get(cell).Count(h => h.value == Values.MINE);
         }
 
