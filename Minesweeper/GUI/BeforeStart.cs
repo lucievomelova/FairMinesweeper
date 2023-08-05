@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
+using System.Windows.Controls;
 
 namespace Minesweeper
 {
@@ -17,6 +18,16 @@ namespace Minesweeper
             Game.flagsLeft = Game.mines;
             Game.unknownMinesLeft = Game.mines;
             Game.unopenedLeft = Game.width * Game.height;
+            
+            
+            if (!Directory.Exists("./leaderboard"))
+                Directory.CreateDirectory("./leaderboard");
+            if (!File.Exists("./leaderboard/Beginner.txt"))
+                File.Create("./leaderboard/Beginner.txt");
+            if (!File.Exists("./leaderboard/Intermediate.txt"))
+                File.Create("./leaderboard/Intermediate.txt");
+            if (!File.Exists("./leaderboard/Expert.txt"))
+                File.Create("./leaderboard/Expert.txt");
         }
 
         /// <summary> create grid where each game button will be placed </summary>
