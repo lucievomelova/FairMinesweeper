@@ -22,6 +22,8 @@ namespace Minesweeper
         /// <summary> total number of mines in current game </summary>
         public static int mines = 10;
 
+        public static string difficulty = "Beginner";
+
         public static Cell[,] cells;
 
         /// <summary> State of previous game - if it was lost or won or if it wasn't neither of those two </summary>

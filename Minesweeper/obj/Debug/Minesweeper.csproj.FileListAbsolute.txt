@@ -54,6 +54,12 @@ C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\bin\Debug\Syste
 C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\bin\Debug\System.ValueTuple.xml
 C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Minesweeper.exe.config
 C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CopyComplete
-C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Save.g.cs
 C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Minesweeper_MarkupCompile.lref
-C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Save.baml
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\LoadAndSaveProgress\Load.g.cs
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\LoadAndSaveProgress\Save.g.cs
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\LoadAndSaveProgress\Load.baml
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\LoadAndSaveProgress\Save.baml
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Leaderboard.g.cs
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Leaderboard.baml
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Win.g.cs
+C:\Users\admin\Documents\prog\CSharp\FairMinesweeper\Minesweeper\obj\Debug\Win.baml

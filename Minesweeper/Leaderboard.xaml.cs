@@ -22,7 +22,6 @@ namespace Minesweeper
         // Called when clicking the OK button
         private void SelectDifficulty(object sender, RoutedEventArgs e)
         {
-            
             string difficulty = DifficultyComboBox.Text; // selected difficulty
             try
             {
@@ -46,9 +45,11 @@ namespace Minesweeper
                 string[] words = line.Split(' '); // line contains name and time separated by space
                 Int32.TryParse(words[1], out int time);
                 leaderboard.Add(new LeadeboardRow() {Place = place, Name = words[0], Time = time});
+                line = streamReader.ReadLine();
             }
 
             this.LeaderboardTable.ItemsSource = leaderboard;
+            streamReader.Close();
         }
         
         

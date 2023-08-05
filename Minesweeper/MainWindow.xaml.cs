@@ -56,6 +56,12 @@ namespace Minesweeper
             Load load = new Load(this);
             load.Show();
         }
+        
+        private void OpenLeaderboard(object sender, RoutedEventArgs e)
+        {
+            Leaderboard leaderboard = new Leaderboard();
+            leaderboard.Show();
+        }
 
     }
 }

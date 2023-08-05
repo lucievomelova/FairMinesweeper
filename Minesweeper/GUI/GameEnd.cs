@@ -28,7 +28,9 @@ namespace Minesweeper
             }
             MinesLeftLabel.Content = 0;
             Img.Set(NewGameButton, Img.Win);
-            MessageBox.Show("Good job!");
+            
+            Win winWindow = new Win(timer.TimePassed(), Game.difficulty);
+            winWindow.Show();
         }
 
         public void DisableButton(Button btn)

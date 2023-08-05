@@ -19,18 +19,21 @@ namespace Minesweeper
                 Game.mines = 10;
                 Game.width = 9;
                 Game.height = 9;
+                Game.difficulty = "Beginner";
             }
             else if (IntermediateOption.IsSelected)
             {
                 Game.mines = 40;
                 Game.width = 15;
                 Game.height = 13;
+                Game.difficulty = "Intermediate";
             }
             else if(ExpertOption.IsSelected)
             {
                 Game.mines = 99;
                 Game.width = 30;
                 Game.height = 16;
+                Game.difficulty = "Expert";
             }
         }
 

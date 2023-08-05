@@ -13,6 +13,7 @@
                 <MenuItem Header="Options" Click="OpenOptions" />
                 <MenuItem Header="Save Progress" Click="OpenSaver" />
                 <MenuItem Header="Load Saved Game" Click="OpenLoader" />
+                <MenuItem Header="Leaderboard" Click="OpenLeaderboard" />
             </MenuItem>
         </Menu>
         <StackPanel>
