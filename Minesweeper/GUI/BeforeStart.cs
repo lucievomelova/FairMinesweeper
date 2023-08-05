@@ -15,7 +15,7 @@ namespace Minesweeper
 
             MinesLeftLabel.Content = Game.mines;
             Game.flagsLeft = Game.mines;
-            Game.minesLeft = Game.mines;
+            Game.unknownMinesLeft = Game.mines;
             Game.unopenedLeft = Game.width * Game.height;
         }
 

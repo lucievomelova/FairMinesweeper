@@ -6,7 +6,6 @@ using Area = System.Collections.Generic.List<Minesweeper.Cell>;
 
 namespace Minesweeper
 {
-    
     public partial class Bruteforce
     {
         /// <summary> Array of additional threads used for bruteforce </summary>
@@ -187,7 +186,7 @@ namespace Minesweeper
         private void TryAllCombinationsOnArea(Area openedArea)
         {
             Area neighbourArea = GetUnknownNeighbours(openedArea);
-            FindAllCombinations(openedArea, neighbourArea, 0, Game.minesLeft);
+            FindAllCombinations(openedArea, neighbourArea, 0, Game.unknownMinesLeft);
         }
 
         /// <summary> Try all combinations of mine placement on given part of the game field. THis method calls itself

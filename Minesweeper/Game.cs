@@ -11,7 +11,7 @@ namespace Minesweeper
         public static int flagsLeft;
 
         /// <summary> how many mine locations are unknown </summary>
-        public static int minesLeft;
+        public static int unknownMinesLeft;
 
         /// <summary> number of columns </summary>
         public static int width = 9;

@@ -10,7 +10,7 @@ namespace Minesweeper
         /// unopened cells is equal to number of mines in game </summary>
         public void CheckWin()
         {
-            if ((solver.CountIncorrectFlags() == 0 && Game.flagsLeft == 0 && Game.minesLeft == 0) ||
+            if ((solver.CountIncorrectFlags() == 0 && Game.flagsLeft == 0 && Game.unknownMinesLeft == 0) ||
                 Game.unopenedLeft == Game.mines)
                 Win();
         }

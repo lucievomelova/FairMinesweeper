@@ -60,7 +60,7 @@ namespace Minesweeper
         {
             Area neighbourArea = GetUnknownNeighbours(openedArea);
             bool stop = false;
-            FindCombination(openedArea, neighbourArea, 0, Game.minesLeft, ref stop);
+            FindCombination(openedArea, neighbourArea, 0, Game.unknownMinesLeft, ref stop);
         }
 
         /// <summary> Method that is called recursively, that tries to find a correct mine placement for given area  </summary>

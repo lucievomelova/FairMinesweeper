@@ -107,7 +107,7 @@ namespace Minesweeper
 
         private void PlaceIntoMain()
         {
-            Game.minesLeft = Game.mines;
+            Game.unknownMinesLeft = Game.mines;
             int unknownMinesPlaced = 0;
             for (int r = 0; r < Game.height; r++)
             {
@@ -115,7 +115,7 @@ namespace Minesweeper
                 {
                     Cell cell = Game.cells[r, c];
                     if (cell.IsMine() && cell.isKnown)
-                        Game.minesLeft--;
+                        Game.unknownMinesLeft--;
                     else if (cell.longTermState == CellState.MINE)
                     {
                         cell.value = Values.MINE;
@@ -134,7 +134,7 @@ namespace Minesweeper
                 }
             }
             
-            PlaceRemainingMines(Game.minesLeft - unknownMinesPlaced);
+            PlaceRemainingMines(Game.unknownMinesLeft - unknownMinesPlaced);
             SetNumbersAroundMines();
         }
     }

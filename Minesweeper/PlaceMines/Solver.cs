@@ -37,7 +37,7 @@ namespace Minesweeper
             }
 
             bruteforce.TryAllCombinations();
-            UpdateGameField();
+            UpdateGameFieldAfterBruteforce();
         }
 
         /// <summary> Count known mines and unknown cells around cell. If number of known mines == cell.value or
@@ -66,12 +66,13 @@ namespace Minesweeper
                 neighbour.isKnown = true;
             }
 
-            Game.minesLeft -= cell.minesLeft;
+            Game.unknownMinesLeft -= cell.minesLeft;
             cell.minesLeft = 0;
             cell.unknownLeft = 0;
             return updated;
         }
 
+        /// <summary> Count all incorrectly placed flags on the game field </summary>
         public int CountIncorrectFlags()
         {
             int counter = 0;
@@ -84,8 +85,8 @@ namespace Minesweeper
             return counter;
         }
 
-
-        public void UpdateGameField()
+        /// <summary> Check all cells and if some have a longTermState that isn't UNKNOWN or NONE, update it as known</summary>
+        private void UpdateGameFieldAfterBruteforce()
         {
             for (int r = 0; r < Game.height; r++)
             {
@@ -97,7 +98,7 @@ namespace Minesweeper
                     if (state == CellState.MINE) //cell was mine in every combination
                     {
                         if (cell.IsMarked()) continue;
-                        Game.minesLeft--;
+                        Game.unknownMinesLeft--; // another mine is known, so number of unknown mines is decremented
                         cell.isKnown = true; //mark as known
                         cell.longTermState = CellState.NONE;
                         if(Game.HighlightKnownCells && !cell.isOpened)
@@ -123,14 +124,10 @@ namespace Minesweeper
                 {
                     Cell cell = Game.cells[r, c];
                     if (cell.IsNumber() && cell.value != Neighbours.CountMines(cell))
-                    {
                         return false;
-                    }
                 }
             }
-
             return true;
         }
-        
     }
 }

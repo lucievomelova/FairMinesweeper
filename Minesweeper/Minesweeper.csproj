@@ -97,6 +97,9 @@
         <Compile Include="GUI\Grid.cs" />
         <Compile Include="GUI\NewGameButton.cs" />
         <Compile Include="GUI\StartOrResumeGame.cs" />
+        <Compile Include="Leaderboard.xaml.cs">
+          <DependentUpon>Leaderboard.xaml</DependentUpon>
+        </Compile>
         <Compile Include="LoadAndSaveProgress\Encoder.cs" />
         <Compile Include="LoadAndSaveProgress\Load.xaml.cs">
           <DependentUpon>Load.xaml</DependentUpon>
@@ -115,6 +118,7 @@
         <Compile Include="PlaceMines\Solver.cs" />
         <Compile Include="Timer.cs" />
         <Compile Include="Values.cs" />
+        <Page Include="Leaderboard.xaml" />
         <Page Include="LoadAndSaveProgress\Load.xaml" />
         <Page Include="LoadAndSaveProgress\Save.xaml" />
         <Page Include="Options.xaml" />
