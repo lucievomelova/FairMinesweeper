@@ -46,6 +46,7 @@ namespace Minesweeper
                 Int32.TryParse(words[1], out int time);
                 leaderboard.Add(new LeadeboardRow() {Place = place, Name = words[0], Time = time});
                 line = streamReader.ReadLine();
+                place++;
             }
 
             this.LeaderboardTable.ItemsSource = leaderboard;

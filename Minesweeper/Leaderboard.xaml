@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Leaderboard" Height="450" Width="600">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Margin="50">
+        <StackPanel HorizontalAlignment="Center" >
             <DockPanel Margin="10" HorizontalAlignment="Center">
                 <Label>Select difficulty: </Label>
                 <ComboBox x:Name="DifficultyComboBox" Width="200">
@@ -18,13 +18,31 @@
                 <Button Content="OK" Click="SelectDifficulty" Width="50"
                         Margin="10, 0, 0, 0"></Button>
             </DockPanel>
-            <DataGrid x:Name="LeaderboardTable" AutoGenerateColumns="True" Height="400" Width="500">
-                <DataGrid.Columns>
-                    <DataGridTextColumn MinWidth="100" Binding="{Binding Path=Place}"/>
-                    <DataGridTextColumn MinWidth="300" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn MinWidth="100" Binding="{Binding Path=Time}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <DockPanel Width="500" Height="300">
+                <Border BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top">
+                    <DataGrid x:Name="LeaderboardTable" AutoGenerateColumns="False" Height="300" Width="500"
+                              IsReadOnly="True" AlternatingRowBackground="GhostWhite" RowBackground="LavenderBlush"
+                              Margin="0" CanUserResizeColumns="False" CanUserResizeRows="False"
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                              CanUserSortColumns="False" HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Place" Width="100" Binding="{Binding Path=Place}"/>
+                            <DataGridTextColumn Header="Player" Width="*" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Time" Width="100" Binding="{Binding Path=Time}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.Resources>
+                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+                               TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="Pink"></Setter>
+                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                                <Setter Property="BorderThickness" Value="1"></Setter>
+                                <Setter Property="Height" Value="30"></Setter>
+                                
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                </Border>
+            </DockPanel>
         </StackPanel>
     </Grid>
 </Window>
