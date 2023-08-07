@@ -4,12 +4,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Options" Height="200" Width="300">
+        Title="Options" Height="300" Width="400">
     <Grid >
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <DockPanel Margin="10">
                 <Label Content="Select difficulty: "></Label>
-                <ComboBox Width="100" HorizontalAlignment="Right">
+                <ComboBox Width="200" HorizontalAlignment="Right">
                     <ComboBoxItem Name="BeginnerOption" IsSelected="True" >Beginner</ComboBoxItem>
                     <ComboBoxItem Name="IntermediateOption" IsSelected="True" >Intermediate</ComboBoxItem>
                     <ComboBoxItem Name="ExpertOption" IsSelected="True" >Expert</ComboBoxItem>
@@ -19,8 +19,12 @@
             <DockPanel Margin="10">
                 <Label Content="Mode: " ></Label>
                 <StackPanel HorizontalAlignment="Center">
-                    <RadioButton Name="DebugModeRadioBtn" GroupName="Mode" Margin="1" >Debug Mode</RadioButton>
-                    <RadioButton Name="NormalModeRadioBtn" GroupName="Mode" Margin="1" >Normal mode</RadioButton>
+                    <RadioButton Name="HelpModeRadioBtn" GroupName="Mode" 
+                                 Margin="1" >Help Mode (Known cells are highlighted)</RadioButton>
+                    <RadioButton Name="DebugModeRadioBtn" GroupName="Mode" 
+                                 Margin="1" >Debug mode (mines are highlighted)</RadioButton>
+                    <RadioButton Name="NormalModeRadioBtn" GroupName="Mode" 
+                                 Margin="1" >Normal mode</RadioButton>
                 </StackPanel>
             </DockPanel>
             <Button Content="OK" Click="OK_Click" Width="50" Margin="20"></Button>

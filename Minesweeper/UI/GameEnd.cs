@@ -29,7 +29,7 @@ namespace Minesweeper
             MinesLeftLabel.Content = 0;
             Img.Set(NewGameButton, Img.Win);
             
-            Win winWindow = new Win(timer.TimePassed(), Game.difficulty);
+            Win winWindow = new Win(timer.TimePassed());
             winWindow.Show();
         }
 

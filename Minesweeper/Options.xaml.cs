@@ -9,7 +9,7 @@ namespace Minesweeper
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
-            DebugModeRadioBtn.IsChecked = true;
+            HelpModeRadioBtn.IsChecked = true;
         }
 
         private void SetDifficulty()
@@ -19,30 +19,41 @@ namespace Minesweeper
                 Game.mines = 10;
                 Game.width = 9;
                 Game.height = 9;
-                Game.difficulty = "Beginner";
+                Game.difficulty = Difficulty.Beginner;
             }
             else if (IntermediateOption.IsSelected)
             {
                 Game.mines = 40;
                 Game.width = 15;
                 Game.height = 13;
-                Game.difficulty = "Intermediate";
+                Game.difficulty = Difficulty.Intermediate;
             }
             else if(ExpertOption.IsSelected)
             {
                 Game.mines = 99;
                 Game.width = 30;
                 Game.height = 16;
-                Game.difficulty = "Expert";
+                Game.difficulty = Difficulty.Expert;
             }
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-            if(DebugModeRadioBtn.IsChecked == true)
+            if (HelpModeRadioBtn.IsChecked == true)
+            {
                 Game.HighlightKnownCells = true;
+                Game.gameMode = GameMode.Help;
+            }
+            else if(DebugModeRadioBtn.IsChecked == true)
+            {
+                Game.HighlightKnownCells = true;
+                Game.gameMode = GameMode.Debug;
+            }
             else
+            {
                 Game.HighlightKnownCells = false;
+                Game.gameMode = GameMode.Normal;
+            }
 
             SetDifficulty();
             

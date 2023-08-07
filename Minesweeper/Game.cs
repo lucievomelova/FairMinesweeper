@@ -2,6 +2,19 @@
 
 namespace Minesweeper
 {
+    public enum GameMode
+    {
+        Help,
+        Normal,
+        Debug
+    }
+
+    public enum Difficulty
+    {
+        Beginner,
+        Intermediate,
+        Expert
+    }
     public static class Game
     {
         /// <summary> how many cells (buttons) aren't opened (including marked cells) </summary>
@@ -22,7 +35,9 @@ namespace Minesweeper
         /// <summary> total number of mines in current game </summary>
         public static int mines = 10;
 
-        public static string difficulty = "Beginner";
+        public static Difficulty difficulty = Difficulty.Beginner;
+
+        public static GameMode gameMode = GameMode.Help;
 
         public static Cell[,] cells;
 

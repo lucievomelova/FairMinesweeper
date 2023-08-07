@@ -8,20 +8,33 @@ namespace Minesweeper
     public partial class Win : Window
     {
         private int time;
-        private string difficulty;
         
-        public Win(int time, string difficulty)
+        public Win(int time)
         {
             InitializeComponent();
             this.time = time;
-            this.difficulty = difficulty;
+        }
+
+        private string GameDifficultyToString()
+        {
+            switch (Game.difficulty)
+            {
+                case Difficulty.Beginner:
+                    return "Beginner";
+                case Difficulty.Intermediate:
+                    return "Intermediate";
+                case Difficulty.Expert:
+                    return "Expert";
+            }
+
+            return "";
         }
         
         // Called when clicking the OK button
         private void SaveToLeaderboard(object sender, RoutedEventArgs e)
         {
             string lineToBeAdded = NameTextBox.Text + " " + time.ToString();
-            string filename = "leaderboard/" + difficulty + ".txt";
+            string filename = "leaderboard/" + GameDifficultyToString() + ".txt";
             StreamReader streamReader = new StreamReader(filename); // load leaderboard from file
 
             string newFileContent = "";
