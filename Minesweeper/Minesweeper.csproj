@@ -91,12 +91,6 @@
         </ApplicationDefinition>
         <Compile Include="Cell.cs" />
         <Compile Include="Game.cs" />
-        <Compile Include="GUI\BeforeStart.cs" />
-        <Compile Include="GUI\CellClicked.cs" />
-        <Compile Include="GUI\GameEnd.cs" />
-        <Compile Include="GUI\Grid.cs" />
-        <Compile Include="GUI\NewGameButton.cs" />
-        <Compile Include="GUI\StartOrResumeGame.cs" />
         <Compile Include="Leaderboard.xaml.cs">
           <DependentUpon>Leaderboard.xaml</DependentUpon>
         </Compile>
@@ -113,10 +107,16 @@
         </Compile>
         <Compile Include="Open.cs" />
         <Compile Include="Model.cs" />
-        <Compile Include="PlaceMines\Bruteforce.cs" />
-        <Compile Include="PlaceMines\FindCorrectMinePlacementOnReGeneration.cs" />
-        <Compile Include="PlaceMines\Solver.cs" />
+        <Compile Include="Solver\Bruteforce.cs" />
+        <Compile Include="Solver\FindCorrectMinePlacementOnReGeneration.cs" />
+        <Compile Include="Solver\Solver.cs" />
         <Compile Include="Timer.cs" />
+        <Compile Include="UI\BeforeStart.cs" />
+        <Compile Include="UI\CellClicked.cs" />
+        <Compile Include="UI\GameEnd.cs" />
+        <Compile Include="UI\Grid.cs" />
+        <Compile Include="UI\NewGameButton.cs" />
+        <Compile Include="UI\StartOrResumeGame.cs" />
         <Compile Include="Values.cs" />
         <Compile Include="Win.xaml.cs">
           <DependentUpon>Win.xaml</DependentUpon>
