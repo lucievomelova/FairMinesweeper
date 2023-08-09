@@ -69,19 +69,7 @@ namespace Minesweeper
                 else if (cell.isOpened) //cell is already opened - try to open neighbours
                     open.OpenNeighbours(cell);
             }
-            
-            for (int r = 0; r < Game.height; r++)
-            {
-                for (int c = 0; c < Game.width; c++)
-                {
-                    Cell x = Game.cells[r, c];
-                    if(x.IsMine() && x.isKnown && !x.IsMarked())
-                        x.SetImage(Img.Purple);
-                    if(x.IsMine() && !x.isKnown )
-                        x.SetImage(Img.Blue);
-                }
-            }
-            
+
             CheckWin();
             
         }

@@ -37,13 +37,7 @@ namespace Minesweeper
         private void BtnMouseLeave(object sender, MouseEventArgs e)
         {
             Cell cell = Game.FindCell((Button) sender);
-            if (!cell.isOpened && !cell.IsMarked())
-            {
-                if (cell.isKnown && Game.HighlightKnownCells)
-                    cell.SetImage(Img.Known);
-                else
-                    cell.SetImage(Img.Empty);
-            }
+            Img.UpdateUnopened(cell);
         }
 
 

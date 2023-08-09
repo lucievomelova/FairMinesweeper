@@ -37,10 +37,7 @@ namespace Minesweeper
                 foreach (Cell neighbour in Get(cell))
                     if(!neighbour.isOpened && !neighbour.IsMarked())
                     {
-                        if(Game.HighlightKnownCells)
-                            neighbour.SetImage(Img.Known);
-                        else
-                            neighbour.SetImage(Img.Empty);
+                        Img.UpdateUnopened(neighbour);
                     }
         }
         

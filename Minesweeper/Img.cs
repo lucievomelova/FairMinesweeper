@@ -42,5 +42,23 @@ namespace Minesweeper
         {
             btn.Content = new Image {Source = img};
         }
+
+        public static void UpdateUnopened(Cell cell)
+        {
+            if (Game.gameMode == GameMode.Help || Game.gameMode == GameMode.Debug)
+            {
+                if (!cell.isOpened && !cell.IsMarked())
+                {
+                    if (cell.value == Values.MINE && cell.isKnown && Game.gameMode == GameMode.Debug)
+                        cell.SetImage(Img.Purple);
+                    else if (cell.isKnown)
+                        cell.SetImage(Img.Known);
+                    else if (cell.value == Values.MINE && Game.gameMode == GameMode.Debug)
+                        cell.SetImage((Img.Blue));
+                    else
+                        cell.SetImage(Img.Empty);
+                }
+            }
+        }
     }
 }

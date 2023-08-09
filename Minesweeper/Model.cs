@@ -25,6 +25,14 @@ namespace Minesweeper
             SetNeighboursToKnown(cell.row, cell.column);
             PlaceRemainingMines(Game.mines);
             SetNumbersAroundMines();
+            
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Img.UpdateUnopened(Game.cells[r,c]);
+                }
+            }
         }
 
         /// <summary> when there are no known unopened numbers left, player can click on any unknown cell and there has
@@ -43,11 +51,7 @@ namespace Minesweeper
             {
                 for (int c = 0; c < Game.width; c++)
                 {
-                    Cell x = Game.cells[r, c];
-                    if(x.IsMine() && x.isKnown && !x.IsMarked())
-                        x.SetImage(Img.Purple);
-                    if(x.IsMine() && !x.isKnown )
-                        x.SetImage(Img.Blue);
+                    Img.UpdateUnopened(Game.cells[r, c]);
                 }
             }
 
@@ -119,7 +123,7 @@ namespace Minesweeper
                     else if (cell.longTermState == CellState.MINE)
                     {
                         cell.value = Values.MINE;
-                        if(!cell.IsMarked())
+                        if(!cell.IsMarked() && Game.gameMode == GameMode.Debug)
                             cell.SetImage(Img.Purple);
                         cell.longTermState = CellState.NONE;
                         unknownMinesPlaced++;

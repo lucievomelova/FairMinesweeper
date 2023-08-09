@@ -41,17 +41,14 @@ namespace Minesweeper
         {
             if (HelpModeRadioBtn.IsChecked == true)
             {
-                Game.HighlightKnownCells = true;
                 Game.gameMode = GameMode.Help;
             }
             else if(DebugModeRadioBtn.IsChecked == true)
             {
-                Game.HighlightKnownCells = true;
                 Game.gameMode = GameMode.Debug;
             }
             else
             {
-                Game.HighlightKnownCells = false;
                 Game.gameMode = GameMode.Normal;
             }
 

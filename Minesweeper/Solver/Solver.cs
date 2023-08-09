@@ -45,8 +45,6 @@ namespace Minesweeper
         /// <returns> Returns true if new known cells were found.</returns>
         public bool UpdateCell(Cell cell)
         {
-            //if (cell.IsMarked()) return false;
-
             //true if cell will be updated
             bool updated = cell.minesLeft != cell.value - Neighbours.CountKnownMines(cell) || 
                            cell.unknownLeft != Neighbours.CountUnknown(cell);
@@ -59,11 +57,9 @@ namespace Minesweeper
             foreach (Cell neighbour in Neighbours.Get(cell))
             {
                 if (neighbour.isKnown) continue;
-                
-                if(Game.HighlightKnownCells && !neighbour.IsMarked())
-                    neighbour.SetImage(Img.Known);
-                
+
                 neighbour.isKnown = true;
+                Img.UpdateUnopened(neighbour);
             }
 
             Game.unknownMinesLeft -= cell.minesLeft;
@@ -97,21 +93,24 @@ namespace Minesweeper
 
                     if (state == CellState.MINE) //cell was mine in every combination
                     {
-                        if (cell.IsMarked()) continue;
                         Game.unknownMinesLeft--; // another mine is known, so number of unknown mines is decremented
                         cell.isKnown = true; //mark as known
                         cell.longTermState = CellState.NONE;
-                        if(Game.HighlightKnownCells && !cell.isOpened)
-                            cell.SetImage(Img.Known);
                     }
                     else if (state == CellState.NUMBER) //cell was number in every combination
                     {
-                        if (cell.IsMarked()) continue;
                         cell.isKnown = true; //mark as known
                         cell.longTermState = CellState.NONE;
-                        if(Game.HighlightKnownCells && !cell.isOpened)
-                            cell.SetImage(Img.Known);
                     }
+                }
+            }
+            
+            for (int r = 0; r < Game.height; r++)
+            {
+                for (int c = 0; c < Game.width; c++)
+                {
+                    Cell cell = Game.cells[r, c];
+                    Img.UpdateUnopened(cell);
                 }
             }
         }

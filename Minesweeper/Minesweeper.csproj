@@ -109,6 +109,7 @@
         <Compile Include="Model.cs" />
         <Compile Include="Solver\Bruteforce.cs" />
         <Compile Include="Solver\FindCorrectMinePlacementOnReGeneration.cs" />
+        <Compile Include="Solver\KnownCombinations.cs" />
         <Compile Include="Solver\Solver.cs" />
         <Compile Include="Timer.cs" />
         <Compile Include="UI\BeforeStart.cs" />

@@ -159,8 +159,8 @@ namespace Minesweeper
                     cell.SetImage(Img.Flag);
                 else if(cell.isQuestionMark)
                     cell.SetImage(Img.QuestionMark);
-                else if(cell.isKnown)
-                    cell.SetImage(Img.Known);
+                else 
+                    Img.UpdateUnopened(cell);
             }
         }
     }
