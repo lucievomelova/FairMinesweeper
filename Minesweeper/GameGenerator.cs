@@ -5,7 +5,7 @@ using System.Windows;
 namespace Minesweeper
 {
     /// <summary> class for generating game field </summary>
-    public class Model
+    public class GameGenerator
     {
         public Solver solver = new Solver();
         

@@ -14,6 +14,7 @@
         <WarningLevel>4</WarningLevel>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -106,10 +107,9 @@
           <DependentUpon>Options.xaml</DependentUpon>
         </Compile>
         <Compile Include="Open.cs" />
-        <Compile Include="Model.cs" />
+        <Compile Include="GameGenerator.cs" />
         <Compile Include="Solver\Bruteforce.cs" />
         <Compile Include="Solver\FindCorrectMinePlacementOnReGeneration.cs" />
-        <Compile Include="Solver\KnownCombinations.cs" />
         <Compile Include="Solver\Solver.cs" />
         <Compile Include="Timer.cs" />
         <Compile Include="UI\BeforeStart.cs" />
@@ -177,9 +177,11 @@
       <Content Include="bin\Debug\pic\game_over_down.jpg" />
       <Content Include="bin\Debug\pic\icon.png" />
       <Content Include="bin\Debug\pic\mine.jpg" />
+      <Content Include="bin\Debug\pic\mine.png" />
       <Content Include="bin\Debug\pic\pink_blank.jpg" />
       <Content Include="bin\Debug\pic\blue_blank.jpg" />
       <Content Include="bin\Debug\pic\purple_blank.jpg" />
+      <Content Include="bin\Debug\pic\purple_blank.png" />
       <Content Include="bin\Debug\pic\question_mark.jpg" />
       <Content Include="bin\Debug\pic\smiley.jpg" />
       <Content Include="bin\Debug\pic\smiley_down.jpg" />

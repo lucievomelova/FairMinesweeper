@@ -10,7 +10,7 @@ namespace Minesweeper
     public partial class MainWindow
     {
         private Open open;
-        private Model model;
+        private GameGenerator gameGenerator;
         private Solver solver;
         public readonly Timer timer;
 

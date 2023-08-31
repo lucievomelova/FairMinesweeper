@@ -48,10 +48,6 @@ namespace Minesweeper
 
         public CellState longTermState = CellState.NONE;
 
-        public Cell parent;
-
-        public List<Cell> children;
-
         public Cell(int row, int column)
         {
             this.row = row;
@@ -64,8 +60,6 @@ namespace Minesweeper
             isQuestionMark = false;
             isKnown = false;
             btn = new Button();
-            parent = this;
-            children = new List<Cell>();
         }
         
         public void SetImage(BitmapImage img) { Img.Set(btn, img); }

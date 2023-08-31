@@ -36,7 +36,7 @@ namespace Minesweeper
             {
                 if (cell.IsMine()) //clicked cell was originally a mine
                 {
-                    bool success = model.ReGenerate(cell); //try to generate game field to fit already open buttons
+                    bool success = gameGenerator.ReGenerate(cell); //try to generate game field to fit already open buttons
                     if (success)
                         open.OpenNumber(cell);
 

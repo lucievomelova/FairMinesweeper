@@ -9,7 +9,7 @@ namespace Minesweeper
         private void Initialize()
         {
             open = new Open(this);
-            model = open.model;
+            gameGenerator = open.GameGenerator;
             solver = open.solver;
             newGame = true;
             Game.cells = new Cell[Game.height, Game.width];

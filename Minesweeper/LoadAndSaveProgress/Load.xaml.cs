@@ -15,16 +15,18 @@ namespace Minesweeper
         
         public Load(MainWindow mainWindow)
         {
-            InitializeComponent();
-            DirectoryInfo d = new DirectoryInfo(@".\saved\");
-            FileInfo[] Files = d.GetFiles("*.txt"); // get filenames
-            foreach (var f in Files)
-            {
-                string name = f.Name.Substring(0, f.Name.Length - 4);
-                SavedGamesComboBox.Items.Add(f.Name); 
-            }
+        InitializeComponent();
+        if (!Directory.Exists("./saved"))
+            Directory.CreateDirectory("./saved");
+        DirectoryInfo d = new DirectoryInfo(@".\saved\");
+        FileInfo[] Files = d.GetFiles("*.txt"); // get filenames
+        foreach (var f in Files)
+        {
+            string name = f.Name.Substring(0, f.Name.Length - 4);
+            SavedGamesComboBox.Items.Add(f.Name); 
+        }
 
-            this.mainWindow = mainWindow;
+        this.mainWindow = mainWindow;
         }
         
         // Called when clicking the OK button

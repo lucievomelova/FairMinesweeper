@@ -7,15 +7,15 @@ namespace Minesweeper
     /// <summary> handles cell opening </summary>
     public class Open
     {
-        public readonly Model model;
+        public readonly GameGenerator GameGenerator;
         public readonly Solver solver;
         private readonly MainWindow mainWindow;
         
         public Open(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
-            model = new Model();
-            solver = model.solver;
+            GameGenerator = new GameGenerator();
+            solver = GameGenerator.solver;
         }
 
         public void SetCell(Cell cell, bool opened, bool flag, bool questionMark)

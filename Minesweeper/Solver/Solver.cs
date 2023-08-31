@@ -6,7 +6,7 @@ using System.Threading;
 namespace Minesweeper
 {
     /// <summary> pre-solves area around open cells in current game (if possible) </summary>
-    public partial class Solver
+    public class Solver
     {
         public Bruteforce bruteforce = new Bruteforce();
 

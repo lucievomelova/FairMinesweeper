@@ -21,7 +21,7 @@
         {
             newGame = false;
             timer.Start();
-            model.Generate(cell); //generate new game field
+            gameGenerator.Generate(cell); //generate new game field
             open.OpenArea(cell); //open clicked cell (there will always be number 0, so area will be opened)
         }
     }
