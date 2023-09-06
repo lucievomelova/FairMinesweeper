@@ -43,10 +43,10 @@ namespace Minesweeper
             {
                 Game.gameMode = GameMode.Help;
             }
-            else if(DebugModeRadioBtn.IsChecked == true)
-            {
-                Game.gameMode = GameMode.Debug;
-            }
+            // else if(DebugModeRadioBtn.IsChecked == true)
+            // {
+            //    Game.gameMode = GameMode.Debug;
+            // }
             else
             {
                 Game.gameMode = GameMode.Normal;

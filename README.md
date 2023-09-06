@@ -95,7 +95,7 @@ This cell is set to zero and then all mines are placed randomly. After that,
 numbers are placed around them.
 
 ### Regenerating
-Regenerating occurs when there is no known unopened cell left. Because then, the player 
+Regenerating occurs when there is no known unopened number left. Because then, the player 
 can click almost anywhere and there has to be a number. Since the game field exists in 
 the background, it can happen that the player clicks on a cell that is a mine. This is the 
 case when the unopened part of the game field has to be regenerated. 
@@ -112,8 +112,8 @@ After clicking on one of the mines around number 3, the mine placement completel
 
 
 ## Solver folder
-Solver folder contains three files -*Bruteforce.cs, 
-FindCorrectMinePlacementOnRegeneration.cs, Solver.cs*. The  `Solver` class has the 
+Solver folder contains three files - `Bruteforce.cs, 
+FindCorrectMinePlacementOnRegeneration.cs, Solver.cs`. The  `Solver` class has the 
 method `Update`, which is called after a new cell is opened. It calls other methods 
 that calculate all new known cells. 
 

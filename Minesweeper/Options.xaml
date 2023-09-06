@@ -21,8 +21,8 @@
                 <StackPanel HorizontalAlignment="Center">
                     <RadioButton Name="HelpModeRadioBtn" GroupName="Mode" 
                                  Margin="1" >Help Mode (Known cells are highlighted)</RadioButton>
-                    <RadioButton Name="DebugModeRadioBtn" GroupName="Mode" 
-                                 Margin="1" >Debug mode (mines are highlighted)</RadioButton>
+                     <!--- <RadioButton Name="DebugModeRadioBtn" GroupName="Mode" 
+                                 Margin="1" >Debug mode (mines are highlighted)</RadioButton> -->
                     <RadioButton Name="NormalModeRadioBtn" GroupName="Mode" 
                                  Margin="1" >Normal mode</RadioButton>
                 </StackPanel>
@@ -31,3 +31,4 @@
         </StackPanel>
     </Grid>
 </Window>
+
