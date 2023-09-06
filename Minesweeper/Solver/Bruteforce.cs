@@ -278,7 +278,7 @@ namespace Minesweeper
         }
 
         /// <summary> Count mines around given cell </summary>
-        /// <returns> NUmber of mines around the cell </returns>
+        /// <returns> Number of mines around the cell </returns>
         private int CountPlacedMines(Cell cell)
         {
             int count = 0;

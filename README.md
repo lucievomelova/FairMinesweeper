@@ -43,7 +43,8 @@ choose difficulty in the *Options* menu.
 
 ## Load and save a game
 You can also save current game and then continue playing it later. This can be 
-done by clicking *Save game* or *Load game* in the menu.
+done by clicking *Save game* or *Load game* in the menu. You can also save a 
+finished game to view it later.
 
 ## Leaderboard
 Each successfully finished game is saved to leaderboard - with players name and the 

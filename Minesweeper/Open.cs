@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Minesweeper
@@ -110,6 +109,7 @@ namespace Minesweeper
         public void OpenMine(Cell cell)
         {
             mainWindow.timer.Stop();
+            mainWindow.SaveGameOption.IsEnabled = false;
             mainWindow.previousGame = Game.PreviousGame.LOSE;
             
             Img.Set(mainWindow.NewGameButton, Img.GameOver);
