@@ -11,7 +11,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Menu">
                 <MenuItem Header="Options" Click="OpenOptions" />
-                <MenuItem Header="Save Progress" Click="OpenSaver" />
+                <MenuItem x:Name="SaveGameOption" Header="Save Progress" Click="OpenSaver" IsEnabled="False" />
                 <MenuItem Header="Load Saved Game" Click="OpenLoader" />
                 <MenuItem Header="Leaderboard" Click="OpenLeaderboard" />
             </MenuItem>

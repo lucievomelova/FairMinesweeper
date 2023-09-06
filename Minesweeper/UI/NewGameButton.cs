@@ -11,6 +11,7 @@ namespace Minesweeper
             timer.Stop();
             previousGame = Game.PreviousGame.NORMAL;
             TimeLabel.Content = "000";
+            SaveGameOption.IsEnabled = false;
         }
 
         private void NewGameMouseEnter(object sender, MouseEventArgs e)

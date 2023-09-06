@@ -5,8 +5,8 @@ With this added functionality, players cannot "cheat" by clicking randomly on th
 
 # How to play
 Start new game by left clicking anywhere on the game field. A part of the game field 
-will open. Then, you cab start marking mines on the game fields by right clicking 
-on a chosen cell. You can also open cells with a left click. But be careful! If 
+will open. Then, you can start marking mines on the game fields by right clicking 
+on a chosen cell. You can open cells with a left click. But be careful! If 
 you click on a mine, you will lose the game.
 
 Each opened number will have a value from 1 - 8. This value indicates how 
@@ -17,7 +17,7 @@ will open.
 Fair Minesweeper ensures that players won't just randomly click on the game field 
 and hope that they won't click on a mine. If there is at least one unopened cell 
 that can be opened for sure, you cannot click on an "uncertain" cell, because you 
-will lose the game. But, if no cell can be opened, you can click on any cell that 
+will lose the game. But, if no cell can be opened with certainty, you can click on any cell that 
 can be a number and it will be a number.
 
 Once you begin a new game, a timer will start. If you finish a game successfully,
@@ -51,14 +51,14 @@ time it took them to finish the game. Leaderboard can be displayed by clicking o
 *Leaderboard* in the menu and then selecting wanted difficulty.
 
 # Technical details
-This application is written in C#, in WPF. The game is stored as an array of cells. 
-ONce the game starts, a game field is generated, where each cell is either a number 
+This application is written in C#, in WPF. The game field is stored as an array of cells. 
+Once the game starts, a game field is generated, where each cell is either a number 
 (0-8), or a mine. 
 
 ## MainWindow class
 This class represents the main game window. It contains methods for game start, game 
 end, mouse events (either for cells or new game button) and functionalities for when game 
-starts or ends. It is split into many files - `MainWindow.cs` and all files in `UI`
+starts or ends. It is split into many files - `MainWindow.cs` and all files in the `UI`
 directory.
 
 ## Game.cs
@@ -90,7 +90,7 @@ game field.
 
 ### Generating
 Generating occurs at game start. Player clicks on a cell, this cell then has to 
-be number 0, so at least a small part of game field is opened nd not just one number.
+be number 0, so at least a small part of game field is opened and not just one number.
 This cell is set to zero and then all mines are placed randomly. After that, 
 numbers are placed around them.
 

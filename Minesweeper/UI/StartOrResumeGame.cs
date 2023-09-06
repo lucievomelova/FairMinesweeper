@@ -13,6 +13,7 @@
             previousGame = Game.PreviousGame.NORMAL;
             newGame = false;
             TimeLabel.Content = time.ToString("D3");
+            SaveGameOption.IsEnabled = true;
         }
         
         /// <summary> Start new game by clicking on a random cell on the game field </summary>
@@ -23,6 +24,8 @@
             timer.Start();
             gameGenerator.Generate(cell); //generate new game field
             open.OpenArea(cell); //open clicked cell (there will always be number 0, so area will be opened)
+            SaveGameOption.IsEnabled = true;
+
         }
     }
 }

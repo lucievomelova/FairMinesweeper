@@ -59,6 +59,13 @@ namespace Minesweeper
                         cell.SetImage(Img.Empty);
                 }
             }
+            else
+            {
+                if (!cell.isOpened && !cell.IsMarked())
+                {
+                    cell.SetImage(Img.Empty);
+                }
+            }
         }
     }
 }
