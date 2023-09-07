@@ -107,8 +107,11 @@ remaining cells.
 
 An example of when regeneration occurs (light blue cells contain unknown mines, 
 purple cells contain known mines and pink cells are known numbers):
+
 ![game field before regeneration](pic/before_reg.png "Before regeneration")
+
 After clicking on one of the mines around number 3, the mine placement completely changes:
+
 ![game field after regeneration](pic/after_reg.png "After regeneration")
 
 
